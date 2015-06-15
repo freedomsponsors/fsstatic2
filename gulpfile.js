@@ -14,7 +14,7 @@ gulp.task('linkjs', function() {
             startTag: '<!--JS-->',
             endTag: '<!--JS END-->',
             fileTmpl: '<script src="%s"></script>',
-            appRoot: 'approot/'
+            // appRoot: 'approot/'
         }))
         .pipe(gulp.dest('./dist/'));
 });
