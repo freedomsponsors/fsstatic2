@@ -1,33 +1,3 @@
-<div class="developers-sidebar developers-content">
-    <ul class="developers-sidebar-scroll">
-        <li>
-            <div class="developers-sidebar-search">
-                <input type="text" ng-model="search" placeholder="Busca"/>
-                <i class="qicon-lupa"></i>
-            </div>
-        </li>
-        <li>
-            <a  class="developers-sidebar-item" href="/{[{ group }]}/js/#/">Instruções</a>
-        </li>
-        <li ng-show="(componentes | filter: { category: category.name } | filter: search).length"
-            ng-repeat="category in categories | orderBy: 'name'">
-            <a href ng-click="toggle_category(category)" ng-class="{'active': category.open}" class="developers-sidebar-category">
-                <strong >{[{ $index + 1 }]}. {[{ category.name }]}</strong>
-                <i ng-class="{'qicon-seta-baixo': !category.open,'qicon-seta-cima': category.open}"></i>
-            </a>
-            <ul class="slide-left" ng-show="category.open">
-                <li ng-repeat="componente in componentes | orderBy: 'title' | filter: { category: category.name } | filter: search">
-                    <a ng-click="toggle_active(componente)" ng-class="{'active': componente.active }" class="developers-sidebar-item" href="#/{[{ componente.category }]}/{[{ componente.title }]}">
-                        {[{ $parent.$index + 1 }]}.{[{ $index + 1 }]}. {[{ componente.title }]}
-                    </a>
-                </li>
-            </ul>
-        </li>
-        <li ng-hide="(componentes | filter: { category: category } | filter: search).length">
-            <div class="developers-sidebar-empty">
-                <h1>Ops! :(</h1>
-                <h2>Nenhum resultado encontrado.</h2>
-            </div>
-        </li>
-    </ul>
+<div>
+    oiiiiiiiii
 </div>
