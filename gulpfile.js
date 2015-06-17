@@ -1,7 +1,9 @@
+////////// requires
 var gulp = require('gulp');
 var concat = require('gulp-concat');
 var linker = require('gulp-linker');
  
+////////// variables
 var srcjs = [
     './src/**/*.js',
     '!./src/**/docs/**/*.js',
@@ -27,13 +29,19 @@ var libjsmin = [
     './lib/angular-material-0.9.8/angular-material.min.js',
 ];
 
+////////// Big tasks
+
 gulp.task('js', ['concatjssrc', 'concatjsdocs', 'concatjslib', 'concatjslibmin']);
+
+////////// Individual tasks
 
 concattask('concatjssrc', srcjs, 'fs.js');
 concattask('concatjsdocs', docsjs, 'fs_docs.js');
 concattask('concatjslib', libjs, 'lib.js');
 concattask('concatjslibmin', libjsmin, 'lib.min.js');
 linktask('linkjs');
+
+////////// Helper functions
 
 function concattask(id, src, dest){
     gulp.task(id, function() {
