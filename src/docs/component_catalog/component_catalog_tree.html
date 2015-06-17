@@ -1,3 +1,12 @@
 <div>
-    oiiiiiiiii
+    <div ng-repeat="category in m.categories">
+        <button class="md-button-toggle md-button md-default-theme" ng-click="m.toggle_open(category)">
+          <div flex="" layout="row">{[{category.name}]}</div>
+        </button>
+        <ul ng-show="category.open">
+          <li ng-repeat="component in m.components | filter: by_category(category.name)">
+            <a class="md-button" href="#" ng-click="m.activate(component)">{[{component.title}]}</a>
+          </li>
+        </ul>
+    </div>
 </div>
