@@ -30,23 +30,13 @@ angular.module('component_catalog').factory('ComponentCatalog', function(){
         catalog.components.push(component);
     };
 
-    catalog.set_active = function(index) {
-        catalog.components[index].active = true;
-    };
-
     catalog.get = function(category, title){
-        var index;
-        var result = catalog.components.filter(function( component, i ) {
-            if(component.category == category &&
-               component.title == title){
-                index = i;
-                return componente;
+        for(var i=0; i<catalog.components.length; i++){
+            var component = catalog.components[i];
+            if(component.category == category && component.title == title){
+                return component;
             }
-        });
-
-        catalog.set_active(index);
-
-        return result[0];
+        }
     };
 
     function _2array(v){
@@ -151,72 +141,9 @@ angular.module('component_catalog').directive('componentCatalogSample', function
     };
 });
 
-// angular.module('catalogo_componentes').controller('IncludeComponentController', function($scope, $stateParams, $http, $location, CatalogoComponentes,LayoutModel){
-
-//     $scope.layout = LayoutModel;
-
-//     $scope.get_example = function() {
-//         var url = $scope.componente.folder + $scope.componente.example;
-//         $http.get(url).then(function(result){
-//             $scope.componente.source = result.data;
-//         });
-//     };
-
-//     $scope.get_source = function(files) {
-//         var sources = [];
-
-//         angular.forEach(files, function(value, key){
-//             var url = $scope.componente.folder + files[key];
-//             $http.get(url).then(function(result){
-//                 sources[files[key]] = result.data;
-//             });
-//         });
-
-//         return sources;
-//     };
-
-//     var category = $stateParams.category;
-//     var title = $stateParams.title;
-//     var componente = CatalogoComponentes.get(category, title);
-//     $scope.componente = componente;
-
-//     if($scope.componente.example){
-//         $scope.get_example();
-//     }
-//     if($scope.componente.js){
-//         $scope.componente.source_js = $scope.get_source($scope.componente.js);
-//     }
-
-//     if($scope.componente.testes){
-//         $scope.componente.source_teste = $scope.get_source($scope.componente.testes);
-//     }
-
-//     // pega parametros da url para inicializar a tab
-//     $scope.show_uso = $location.search().tab_view == 'uso' ? true : false;
-//     $scope.show_exemplo = $location.search().tab_view == 'exemplo' ? true : false;
-//     $scope.show_codigo = $location.search().tab_view == 'fonte' ? true : false;
-//     $scope.show_js = $location.search().tab_view == 'js' ? $location.search().file : false;
-//     $scope.show_teste = $location.search().tab_view == 'teste' ? $location.search().file : false;
-
-//     if(!$location.search().tab_view){
-//         $scope.show_exemplo = true;
-//     }
-
-//     $scope.set_view = function(view, item){
-//         $scope.show_uso = view == 'uso';
-//         $scope.show_exemplo = view == 'exemplo';
-//         $scope.show_codigo = view == 'fonte';
-//         $scope.show_js = view == 'js' ? item : false;
-//         $scope.show_teste = view == 'teste' ? item : false;
-
-//         $location.search('tab_view', view);
-
-//         if(item !== undefined){
-//             $location.search('file', item);
-//         }
-//     };
-// });
-
-// angular.module('catalogo_componentes').controller('developersCtrl', function($scope, LayoutModel){
-//     $scope.layout = LayoutModel;
-// });
+angular.module('component_catalog').controller('IncludeComponentCatalogSampleCtrl', function($scope, $stateParams, ComponentCatalog, ComponentCatalogViewModel){
+    var category = $stateParams.category;
+    var title = $stateParams.title;
+    var component = ComponentCatalog.get(category, title);
+    ComponentCatalogViewModel.activate(component);
+});

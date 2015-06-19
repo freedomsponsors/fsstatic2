@@ -20,7 +20,7 @@ var libjs = [
     './lib/angular-1.4.0/angular-aria.js',
     './lib/angular-1.4.0/angular-animate.js',
     './lib/angular-material-0.9.8/angular-material.js',
-    './lib/angular-ui-0.4.0/angular-ui.js',
+    './lib/angular-ui-router-0.2.15/angular-ui-router.js',
 ];
 
 var libjsmin = [
@@ -28,7 +28,7 @@ var libjsmin = [
     './lib/angular-1.4.0/angular-aria.min.js',
     './lib/angular-1.4.0/angular-animate.min.js',
     './lib/angular-material-0.9.8/angular-material.min.js',
-    './lib/angular-ui-0.4.0/angular-ui.min.js',
+    './lib/angular-ui-router-0.2.15/angular-ui-router.min.js',
 ];
 
 ////////// Big tasks

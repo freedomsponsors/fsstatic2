@@ -5,7 +5,9 @@
         </button>
         <ul ng-show="category.open">
           <li ng-repeat="component in m.components | filter: by_category(category.name)">
-            <a class="md-button" href="#" ng-click="m.activate(component)">{[{component.title}]}</a>
+            <a class="md-button" href="#/{[{component.category}]}/{[{component.title}]}">
+              {[{component.title}]}
+            </a>
           </li>
         </ul>
     </div>

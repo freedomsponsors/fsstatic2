@@ -14,15 +14,37 @@
         <!--DOCSJS-->
         <!--DOCSJS END-->
         <script>
-            angular.module('fsdocs', ['ngMaterial', 'component_catalog']);
-            angular.module('fsdocs').config(function($interpolateProvider) {
+            angular.module('fsdocs', ['ngMaterial', 'component_catalog', 'ui.router']);
+            angular.module('fsdocs').config(function($interpolateProvider, $stateProvider, $urlRouterProvider) {
                 $interpolateProvider.startSymbol('{[{').endSymbol('}]}');
+
+                $urlRouterProvider.otherwise('/instructions');
+
+                $stateProvider
+                .state('base', {
+                    url: '/:category/:title',
+                    template: '<component-catalog-sample></component-catalog-sample>',
+                    controller: 'IncludeComponentCatalogSampleCtrl'
+                })
+                .state('instructions', {
+                    url: '/instructions',
+                    template: '<div> instructions </div>'
+                    // templateUrl: 'someurl'
+                });
+
             });
             angular.module('fsdocs').controller('AppCtrl', function($scope, $mdSidenav){
                 $scope.toggleSidenav = function(menuId) {
                     $mdSidenav(menuId).toggle();
                 };
             });
+
+
+
+
+
+
+
         </script>
     </head>
     <body ng-app="fsdocs" layout="column" ng-controller="AppCtrl">
@@ -46,7 +68,8 @@
             </md-sidenav>
             <div layout="column" flex id="content">
                 <md-content layout="column" flex class="md-padding">
-                    <component-catalog-sample></component-catalog-sample>
+                    <div ui-view></div>
+                    <!-- <component-catalog-sample></component-catalog-sample> -->
                 </md-content>
             </div>
         </div>
