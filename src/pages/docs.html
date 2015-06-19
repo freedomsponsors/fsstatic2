@@ -13,48 +13,14 @@
         <!--SRCJS END-->
         <!--DOCSJS-->
         <!--DOCSJS END-->
-        <script>
-            angular.module('fsdocs', ['ngMaterial', 'component_catalog', 'ui.router']);
-            angular.module('fsdocs').config(function($interpolateProvider, $stateProvider, $urlRouterProvider) {
-                $interpolateProvider.startSymbol('{[{').endSymbol('}]}');
-
-                $urlRouterProvider.otherwise('/instructions');
-
-                $stateProvider
-                .state('base', {
-                    url: '/:category/:title',
-                    template: '<component-catalog-sample></component-catalog-sample>',
-                    controller: 'IncludeComponentCatalogSampleCtrl'
-                })
-                .state('instructions', {
-                    url: '/instructions',
-                    template: '<div> instructions </div>'
-                    // templateUrl: 'someurl'
-                });
-
-            });
-            angular.module('fsdocs').controller('AppCtrl', function($scope, $mdSidenav){
-                $scope.toggleSidenav = function(menuId) {
-                    $mdSidenav(menuId).toggle();
-                };
-            });
-
-
-
-
-
-
-
-        </script>
     </head>
-    <body ng-app="fsdocs" layout="column" ng-controller="AppCtrl">
+    <body ng-app="docs_main" layout="column" ng-controller="AppCtrl">
         <md-toolbar layout="row">
             <div class="md-toolbar-tools">
                 <md-button ng-click="toggleSidenav('left')" hide-gt-sm class="md-icon-button">
                     <md-icon aria-label="Menu" md-svg-icon="https://s3-us-west-2.amazonaws.com/s.cdpn.io/68133/menu.svg"></md-icon>
                 </md-button>
                 <h1>Hello World</h1>
-                <!-- fill up the space between left and right area -->
                 <md-button> Left </md-button>
                 <md-button> Left </md-button>
                 <span flex></span>
@@ -69,7 +35,6 @@
             <div layout="column" flex id="content">
                 <md-content layout="column" flex class="md-padding">
                     <div ui-view></div>
-                    <!-- <component-catalog-sample></component-catalog-sample> -->
                 </md-content>
             </div>
         </div>

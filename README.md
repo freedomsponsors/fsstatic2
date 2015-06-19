@@ -7,7 +7,6 @@ Separating the front-end and back-end projects will allow for a much faster iter
 
 * dev-env setup documentation
 * javascript tests
-* DOCS framework
 * mock api's
 * component example
 * main SPA

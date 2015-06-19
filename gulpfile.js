@@ -2,6 +2,8 @@
 var gulp = require('gulp');
 var concat = require('gulp-concat');
 var linker = require('gulp-linker');
+var webserver = require('gulp-webserver');
+ 
  
 ////////// variables
 var srcjs = [
@@ -42,6 +44,7 @@ concattask('concatjsdocs', docsjs, 'fs_docs.js');
 concattask('concatjslib', libjs, 'lib.js');
 concattask('concatjslibmin', libjsmin, 'lib.min.js');
 linktask('linkjs');
+webservertask('runserver');
 
 ////////// Helper functions
 
@@ -72,5 +75,16 @@ function linker_params(src, marker){
     };
 }
 
+function webservertask(id){
+    gulp.task(id, function() {
+        return gulp.src('.')
+        .pipe(webserver({
+            livereload: true,
+            directoryListing: true,
+            open: true,
+            port: 9001,
+        }));
+    });
 
+}
 
