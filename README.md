@@ -18,10 +18,12 @@ sudo npm install -g gulp
 npm install
 
 # Activate the FS dev env
-# This will import a few functions in your bash, and print a little help text about them
+# This will import a few functions in your bash, 
+# and print a little help text about them
 . fsdev.sh
 
-# If you want, you can add an alias to your ~/.bashrc file to make a quick jump into the development environment
+# If you want, you can add an alias to your ~/.bashrc 
+# file to make a quick jump into the development environment
 # Running the command below will tell you how to do so:
 produce_alias
 
@@ -31,7 +33,8 @@ build
 
 # Run the dev server
 # This just starts a http server on port 9001
-# When it's running you can go to localhost:9001/dist/docs.html or /dist/index.html
+# When it's running you can go to 
+# localhost:9001/dist/docs.html or /dist/index.html
 runserver
 ```
 
