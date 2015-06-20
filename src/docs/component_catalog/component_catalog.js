@@ -1,9 +1,3 @@
-if(!window.DOCS){
-    window.DOCS = {};
-}
-if(!DOCS.angular_dependencies){
-    DOCS.angular_dependencies = [];
-}
 angular.module('component_catalog', ['ng_bind_html_unsafe']);
 angular.module('component_catalog').factory('ComponentCatalog', function(){
     var catalog = {

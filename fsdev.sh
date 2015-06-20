@@ -18,6 +18,8 @@ export FS="$(dirname ${BASH_SOURCE[0]})"
 function fshelp {
     echo -e "${GREEN}build${RESTORE}             Builds the entire front end into the ${RED}'dist'${RESTORE} folder"
     echo -e ""
+    echo -e "${GREEN}runserver${RESTORE}         Runs the development playground on port ${RED}9001${RESTORE}"
+    echo -e ""
 }
 
 function build {
@@ -29,6 +31,9 @@ function build {
     return $exitcode
 }
 
+function runserver {
+    gulp runsserver
+}
 
 function runjshint {
     echo ""

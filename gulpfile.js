@@ -12,9 +12,11 @@ var srcjs = [
 ];
 
 var docsjs = [
+    './src/docs/docs_global.js',
     './src/docs/component_catalog/component_catalog.js',
-    './src/**/docs/**/*.js',
+    './src/**/docs/**/!(docs_main)*.js',
     '!./src/**/docs/**/test_*.js',
+    './src/docs/docs_main.js',
 ];
 
 var libjs = [
@@ -79,9 +81,9 @@ function webservertask(id){
     gulp.task(id, function() {
         return gulp.src('.')
         .pipe(webserver({
-            livereload: true,
+            livereload: false,
             directoryListing: true,
-            open: true,
+            open: false,
             port: 9001,
         }));
     });

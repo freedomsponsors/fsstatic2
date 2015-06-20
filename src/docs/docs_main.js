@@ -1,7 +1,12 @@
-angular.module('docs_main', ['ngMaterial', 'component_catalog', 'ui.router']);
-angular.module('docs_main').config(function($interpolateProvider, $stateProvider, $urlRouterProvider) {
+DOCS.add_angular_dependency('ngMaterial');
+DOCS.add_angular_dependency('component_catalog');
+DOCS.add_angular_dependency('ui.router');
+
+angular.module('docs_main', DOCS.angular_dependencies);
+angular.module('docs_main').config(function($interpolateProvider, $controllerProvider, $stateProvider, $urlRouterProvider) {
     $interpolateProvider.startSymbol('{[{').endSymbol('}]}');
 
+    $controllerProvider.allowGlobals();
     $urlRouterProvider.otherwise('/instructions');
 
     $stateProvider
@@ -13,12 +18,6 @@ angular.module('docs_main').config(function($interpolateProvider, $stateProvider
         .state('instructions', {
             url: '/instructions',
             template: '<div> instructions </div>'
-            // templateUrl: 'someurl'
         });
 });
 
-angular.module('docs_main').controller('AppCtrl', function($scope, $mdSidenav){
-    $scope.toggleSidenav = function(menuId) {
-        $mdSidenav(menuId).toggle();
-    };
-});

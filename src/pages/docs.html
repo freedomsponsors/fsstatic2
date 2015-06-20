@@ -9,10 +9,17 @@
             };
         </script>
         <script src="/dist/js/lib.js"></script>
-        <!--SRCJS-->
-        <!--SRCJS END-->
         <!--DOCSJS-->
         <!--DOCSJS END-->
+        <!--SRCJS-->
+        <!--SRCJS END-->
+        <script>
+            angular.module('docs_main').controller('AppCtrl', function($scope, $mdSidenav){
+                $scope.toggleSidenav = function(menuId) {
+                    $mdSidenav(menuId).toggle();
+                };
+            });
+        </script>
     </head>
     <body ng-app="docs_main" layout="column" ng-controller="AppCtrl">
         <md-toolbar layout="row">

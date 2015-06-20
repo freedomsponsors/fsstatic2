@@ -1,9 +1,9 @@
-angular.module('todo_example', []);
+angular.module('todo', []);
 
-angular.module('todo_example').factory('TODOModel', function(){
+angular.module('todo').factory('TODOModel', function(){
     var m = {
-        newtodo: '';
-        todos: [];
+        newtodo: '',
+        todos: [],
     };
 
     angular.extend(m, {
@@ -24,12 +24,12 @@ angular.module('todo_example').factory('TODOModel', function(){
     return m;
 });
 
-angular.module('todo_example').directive('todo', function(){
+angular.module('todo').directive('todo', function(){
     return {
         restrict: 'E',
         replace: true,
         scope: {},
-        template: FS.BASE_URL+'/components/todo_example/todo.html'
+        templateUrl: FS.BASE_URL+'/components/todo_example/todo.html',
         controller: function($scope, TODOModel){
             var m = $scope.m = TODOModel;
         }
