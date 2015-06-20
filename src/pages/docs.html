@@ -4,9 +4,10 @@
         <link rel="stylesheet" href="/lib/angular-material-0.9.8/angular-material.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic">
         <script>
-            window.FS = {
-                BASE_URL: '/src',
-            };
+            if(!window.FS){
+                window.FS = {};
+            }
+            FS.BASE_URL = '/src';
         </script>
         <script src="/dist/js/lib.js"></script>
         <!--DOCSJS-->

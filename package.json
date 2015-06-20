@@ -7,6 +7,7 @@
     "gulp": "~3.9.0",
     "gulp-concat": "~2.5.2",
     "gulp-linker": "~0.1.7",
-    "gulp-webserver": "~0.9.1"
+    "gulp-webserver": "~0.9.1",
+    "yargs": "~3.12.0"
   }
 }

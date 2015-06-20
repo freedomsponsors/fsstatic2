@@ -3,11 +3,17 @@ var gulp = require('gulp');
 var concat = require('gulp-concat');
 var linker = require('gulp-linker');
 var webserver = require('gulp-webserver');
+var argv = require('yargs').argv; 
  
- 
+var mock = argv.mock == 'true' || argv.mock === undefined;
+
+var apijs = mock ? './src/api/api_mock.js' : './src/api/api.js';
+
 ////////// variables
 var srcjs = [
-    './src/**/*.js',
+    './src/fs_global.js',
+    './src/!(api)/**/*.js',
+    apijs,
     '!./src/**/docs/**/*.js',
 ];
 

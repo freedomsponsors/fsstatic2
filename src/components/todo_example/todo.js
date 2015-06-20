@@ -1,8 +1,11 @@
-angular.module('todo', []);
+//This is a toy component to demonstrate how to make them
 
-angular.module('todo').factory('TODOModel', function(){
+angular.module('todo', ['fsapi']);
+
+angular.module('todo').factory('TODOModel', function(FSApi){
     var m = {
         newtodo: '',
+        adding: false,
         todos: [],
     };
 
@@ -12,13 +15,21 @@ angular.module('todo').factory('TODOModel', function(){
     });
 
     function add(){
-        m.todos.push({description: m.newtodo});
+        var todo = {description: m.newtodo};
+        m.adding = true;
+        FSApi.add(todo).then(function(result){
+            var saved_todo = result.data;
+            m.todos.push(saved_todo);
+        }).finally(function(){
+            m.adding = false;
+        })
         m.newtodo = '';
     }
 
     function remove(todo){
         var idx = m.todos.indexOf(todo);
         m.todos.splice(idx, 1);
+        //TODO: remove the todo using an API
     }
 
     return m;

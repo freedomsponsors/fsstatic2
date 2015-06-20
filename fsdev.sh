@@ -17,22 +17,34 @@ export FS="$(dirname ${BASH_SOURCE[0]})"
 
 function fshelp {
     echo -e "${GREEN}build${RESTORE}             Builds the entire front end into the ${RED}'dist'${RESTORE} folder"
+    echo -e "                  Parameters:"
+    echo -e "                  --mock <true|false> Use mock api (default: true)"
     echo -e ""
     echo -e "${GREEN}runserver${RESTORE}         Runs the development playground on port ${RED}9001${RESTORE}"
+    echo -e ""
+    echo -e "${GREEN}produce_alias${RESTORE}     Prints instructions on how to create a persistent shortcut"
+    echo -e "                  for this development environment"
     echo -e ""
 }
 
 function build {
     CD=$(pwd)
     cd $FS
-    dorun "gulp js" "fsstatic build"
+    dorun "gulp js $*" "fsstatic build"
     exitcode=$?
     cd $CD
     return $exitcode
 }
 
 function runserver {
-    gulp runsserver
+    gulp runserver
+}
+
+function produce_alias {
+    echo "The green command below will create an alias that you can use "
+    echo "to drop into FS dev env from anywhere in your bash."
+    echo "You might want to add it to your ~/.bashrc file"
+    echo_green "alias fs='cd $(readlink -e $FS) && . fsdev.sh'"    
 }
 
 function runjshint {
@@ -67,6 +79,7 @@ function dorun {
     name="$2"
     echo ----------------------------------
     echo_green "STARTING $name ..."
+    echo "$cmd"
     t1=$(now_milis)
     $cmd
     exitcode=$?
@@ -83,4 +96,7 @@ function dorun {
     fi
 }
 
-echo_green "Welcome to the FS development environment"
+echo_green "Welcome to the FS development environment. See available commands below:"
+echo_green "Hint: autocomplete should be enabled for them ;)"
+echo_red   "------------------------------------------------------------------------"
+fshelp
