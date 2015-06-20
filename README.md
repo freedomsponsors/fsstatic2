@@ -35,9 +35,10 @@ build
 runserver
 ```
 
+The pages generated in the `dist` folder look for javascript files in the src folder, so you should be able to have a fast save/refresh cicle when dealing with javascript and AngularJS.
+
 ## Next steps:
 
-* dev-env setup documentation
 * javascript tests
 * api's
 * main SPA
