@@ -12,6 +12,7 @@ var apijs = mock ? './src/api/api_mock.js' : './src/api/api.js';
 ////////// variables
 var srcjs = [
     './src/fs_global.js',
+    './src/*.js',
     './src/!(api)/**/*.js',
     apijs,
     '!./src/**/docs/**/*.js',
