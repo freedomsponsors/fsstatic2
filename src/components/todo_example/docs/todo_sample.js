@@ -9,3 +9,10 @@ angular.module('component_catalog').run(function(ComponentCatalog){
         example: 'todo_sample.html',
     });
 });
+
+angular.module('component_catalog').controller('TodoSampleCtrl', function($scope, TODOModel){
+    $scope.add_laundry = function(){
+        TODOModel.newtodo = 'Do the laundry';
+        TODOModel.add();
+    }
+});
