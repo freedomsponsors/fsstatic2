@@ -1,0 +1,9 @@
+<div class="md-toolbar-tools">
+    <h1>FreedomSponsors</h1>
+    <md-button> Projects </md-button>
+    <md-button> Search </md-button>
+    <md-button> etc </md-button>
+    <span flex></span>
+    <a ui-sref="viewuser({login: auth.user.username})" ng-if="auth.authenticated()"> {[{auth.user.username}]} <a>
+    <a ui-sref="login" ng-if="!auth.authenticated()"> Login </a>
+</div>

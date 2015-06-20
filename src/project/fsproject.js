@@ -6,6 +6,10 @@ angular.module('fsproject').factory('FSProjectModel', function(FSApi){
 	return m;
 });
 
+angular.module('fsproject').controller('ProjectStateCtrl', function($scope, $stateParams, FSProjectModel){
+
+});
+
 angular.module('fsproject').directive('fsproject', function(){
 	return {
 		restrict: 'E',

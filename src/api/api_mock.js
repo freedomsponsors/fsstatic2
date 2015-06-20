@@ -2,12 +2,32 @@ angular.module('fsapi', []);
 angular.module('fsapi').factory('FSApi', function($q, $timeout){
 	var fsapi = {
 		add: _mockasync(add),
+		login: _mockasync(login),
+		get_user_details: _mockasync(get_user_details),
 	}
 
 	function add(todo){
 		var newtodo = angular.copy(todo)
 		newtodo.id = Math.floor(Math.random() * 1E9);
 		return newtodo;
+	}
+
+	function login(username, password){
+		var fakeuser = {
+			username: username,
+			name: 'Fake User',
+		};
+		return fakeuser;
+	}
+
+	function get_user_details(username){
+		var fakeuser = {
+			username: username,
+			name: 'Fake User',
+			has_paypal: true,
+			has_bitcoin: false,
+		};
+		return fakeuser;
 	}
 
 	function _mockasync(f){

@@ -6,6 +6,10 @@ angular.module('fssearch').factory('FSSearchModel', function(FSApi){
 	return m;
 });
 
+angular.module('fssearch').controller('SearchStateCtrl', function($scope, $stateParams, FSSearchModel){
+
+});
+
 angular.module('fssearch').directive('fssearch', function(){
 	return {
 		restrict: 'E',

@@ -42,7 +42,7 @@ The pages generated in the `dist` folder look for javascript files in the src fo
 
 ## Next steps:
 
-* javascript tests
-* api's
 * main SPA
 * sass and css
+* javascript tests
+* api's

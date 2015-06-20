@@ -6,6 +6,10 @@ angular.module('fssponsor').factory('FSSponsorModel', function(FSApi){
 	return m;
 });
 
+angular.module('fssponsor').controller('SponsorStateCtrl', function($scope, $stateParams, FSSponsorModel){
+
+});
+
 angular.module('fssponsor').directive('fssponsor', function(){
 	return {
 		restrict: 'E',

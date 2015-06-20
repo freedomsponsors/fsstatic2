@@ -2,6 +2,7 @@
 	var deps = [
 		'ngMaterial',
 		'ui.router',
+		'fstoolbar',
 		'fshome',
 		'fslogin',
 		'fsissue',

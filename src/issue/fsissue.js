@@ -6,6 +6,10 @@ angular.module('fsissue').factory('FSIssueModel', function(FSApi){
 	return m;
 });
 
+angular.module('fsissue').controller('IssueStateCtrl', function($scope, $stateParams, FSIssueModel){
+
+});
+
 angular.module('fsissue').directive('fsissue', function(){
 	return {
 		restrict: 'E',
