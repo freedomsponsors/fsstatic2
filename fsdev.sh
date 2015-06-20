@@ -16,6 +16,8 @@ export FS="$(dirname ${BASH_SOURCE[0]})"
 #. ci/funcs.sh
 
 function fshelp {
+    echo -e "${GREEN}fshelp${RESTORE}            Prints this help"
+    echo -e ""
     echo -e "${GREEN}build${RESTORE}             Builds the entire front end into the ${RED}'dist'${RESTORE} folder"
     echo -e "                  Parameters:"
     echo -e "                  --mock <true|false> Use mock api (default: true)"
