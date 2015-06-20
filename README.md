@@ -38,7 +38,7 @@ build
 runserver
 ```
 
-The pages generated in the `dist` folder look for javascript files in the src folder, so you should be able to have a fast save/refresh cicle when dealing with javascript and AngularJS.
+The pages generated in the `dist` folder look for javascript files in the src folder, so you should be able to have a fast save/refresh development cicle when dealing with javascript and AngularJS.
 
 ## Next steps:
 
