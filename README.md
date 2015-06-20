@@ -8,11 +8,11 @@ Separating the front-end and back-end projects will allow for a much faster iter
 The development environment was though out to be reeeeally friendly and fast to get up and running
 
 ```bash
-# install gulp globally if you don't have it already
+# Install gulp globally if you don't have it already
 # You should need to do this only once
 sudo npm install -g gulp
 
-# download npm dependencies
+# Download npm dependencies
 # You need to do this again in the future if 
 # something changes in the packages.json file
 npm install
