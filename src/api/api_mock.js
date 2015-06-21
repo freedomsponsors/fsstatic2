@@ -1,10 +1,20 @@
 angular.module('fsapi', []);
-angular.module('fsapi').factory('FSApi', function($q, $timeout){
+angular.module('fsapi').factory('FSApi', function($q, $timeout, $log){
 	var fsapi = {
 		add: _mockasync(add),
 		login: _mockasync(login),
+		logout: _mockasync(logout),
+		whoami: _mockasync(whoami),
 		get_user_details: _mockasync(get_user_details),
 	}
+
+	var who = {
+		authenticated: true,
+		user: {
+			username: 'johndoe',
+			name: 'Fake User',
+		},
+	};
 
 	function add(todo){
 		var newtodo = angular.copy(todo)
@@ -17,7 +27,21 @@ angular.module('fsapi').factory('FSApi', function($q, $timeout){
 			username: username,
 			name: 'Fake User',
 		};
+		who = {
+			authenticated: true,
+			user: fakeuser,
+		}
 		return fakeuser;
+	}
+
+	function logout(){
+		who = {
+			authenticated: false
+		};
+	}
+
+	function whoami(){
+		return who;
 	}
 
 	function get_user_details(username){
@@ -46,6 +70,7 @@ angular.module('fsapi').factory('FSApi', function($q, $timeout){
 					var result = f.apply(_this, _arguments);
 					deferred.resolve({data: result});
 				} catch(ex){
+					$log.error(ex);
 					deferred.reject(ex); //TODO: simulate http stuff
 				}
 			}, FS.MOCK.timeout);
