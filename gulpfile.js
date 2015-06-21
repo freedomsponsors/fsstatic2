@@ -1,10 +1,11 @@
 ////////// requires
 var gulp = require('gulp');
 var concat = require('gulp-concat');
+var sass = require('gulp-sass');
 var linker = require('gulp-linker');
 var webserver = require('gulp-webserver');
 var argv = require('yargs').argv; 
- 
+
 var mock = argv.mock == 'true' || argv.mock === undefined;
 
 var apijs = mock ? './src/api/api_mock.js' : './src/api/api.js';
@@ -44,7 +45,7 @@ var libjsmin = [
 
 ////////// Big tasks
 
-gulp.task('js', ['concatjssrc', 'concatjsdocs', 'concatjslib', 'concatjslibmin', 'linkjs']);
+gulp.task('js', ['concatjssrc', 'concatjsdocs', 'concatjslib', 'concatjslibmin', 'linkjs', 'sass']);
 
 ////////// Individual tasks
 
@@ -52,6 +53,7 @@ concattask('concatjssrc', srcjs, 'fs.js');
 concattask('concatjsdocs', docsjs, 'fs_docs.js');
 concattask('concatjslib', libjs, 'lib.js');
 concattask('concatjslibmin', libjsmin, 'lib.min.js');
+sasstask('sass');
 linktask('linkjs');
 webservertask('runserver');
 
@@ -63,6 +65,15 @@ function concattask(id, src, dest){
             .pipe(concat(dest))
             .pipe(gulp.dest('./dist/js/'));
     });
+}
+
+function sasstask(id){
+    gulp.task('sass', function () {
+        gulp.src('./src/**/*.scss')
+            .pipe(sass().on('error', sass.logError))
+            .pipe(gulp.dest('./dist/css'));
+    });
+
 }
 
 function linktask(id){

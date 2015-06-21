@@ -2,7 +2,7 @@
 	<input type="text" ng-model="m.newtodo"></input>
 	<button ng-click="m.add()">Add</button>
 	<span ng-show="m.adding">Adding...</span>
-	<ul>
+	<ul class="todo">
 		<li ng-repeat="todo in m.todos">
 			<span>{[{todo.description}]}</span>
 			<button ng-click="m.remove(todo)">Remove</button>
