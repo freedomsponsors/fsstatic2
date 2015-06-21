@@ -19,12 +19,20 @@ var srcjs = [
     '!./src/**/docs/**/*.js',
 ];
 
+var srcjsprod = [
+    './dist/js/fs.js',
+];
+
 var docsjs = [
     './src/docs/docs_global.js',
     './src/docs/component_catalog/component_catalog.js',
     './src/**/docs/**/!(docs_main)*.js',
     '!./src/**/docs/**/test_*.js',
     './src/docs/docs_main.js',
+];
+
+var docsjsprod = [
+    './dist/js/fs_docs.js',
 ];
 
 var libjs = [
@@ -45,7 +53,8 @@ var libjsmin = [
 
 ////////// Big tasks
 
-gulp.task('js', ['concatjssrc', 'concatjsdocs', 'concatjslib', 'concatjslibmin', 'linkjs', 'sass']);
+gulp.task('js', ['concatjssrc', 'concatjsdocs', 'concatjslib', 'concatjslibmin', 'linkjs']);
+gulp.task('jsprod', ['concatjssrc', 'concatjsdocs', 'concatjslib', 'concatjslibmin', 'linkjsprod']);
 
 ////////// Individual tasks
 
@@ -54,7 +63,8 @@ concattask('concatjsdocs', docsjs, 'fs_docs.js');
 concattask('concatjslib', libjs, 'lib.js');
 concattask('concatjslibmin', libjsmin, 'lib.min.js');
 sasstask('sass');
-linktask('linkjs');
+linktaskdev('linkjs');
+linktaskprod('linkjsprod');
 webservertask('runserver');
 
 ////////// Helper functions
@@ -76,22 +86,31 @@ function sasstask(id){
 
 }
 
-function linktask(id){
+function linktaskdev(id){
     gulp.task(id, function() {
         return gulp.src('./src/pages/*.html')
-            .pipe(linker(linker_params(srcjs, 'SRCJS')))
-            .pipe(linker(linker_params(docsjs, 'DOCSJS')))
+            .pipe(linker(linker_params(srcjs, 'SRCJS', '.')))
+            .pipe(linker(linker_params(docsjs, 'DOCSJS', '.')))
             .pipe(gulp.dest('./dist/'));
     });
 }
 
-function linker_params(src, marker){
+function linktaskprod(id){
+    gulp.task(id, ['concatjssrc', 'concatjsdocs'], function() {
+        return gulp.src('./src/pages/*.html')
+            .pipe(linker(linker_params(srcjsprod, 'SRCJS', 'dist/')))
+            .pipe(linker(linker_params(docsjsprod, 'DOCSJS', 'dist/')))
+            .pipe(gulp.dest('./dist/'));
+    });
+}
+
+function linker_params(src, marker, approot){
     return {
         scripts: src,
         startTag: '<!--'+marker+'-->',
         endTag: '<!--'+marker+' END-->',
         fileTmpl: '<script src="%s"></script>',
-        appRoot: '.'
+        appRoot: approot,
     };
 }
 

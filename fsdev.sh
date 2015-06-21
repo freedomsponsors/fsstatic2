@@ -32,7 +32,7 @@ function fshelp {
 function build {
     CD=$(pwd)
     cd $FS
-    dorun "gulp js $*" "fsstatic build"
+    dorun "gulp js sass $*" "fsstatic build"
     exitcode=$?
     cd $CD
     return $exitcode
