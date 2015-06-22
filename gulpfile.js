@@ -61,6 +61,10 @@ var libjs = [
     './lib/angular-ui-router-0.2.15/angular-ui-router.js',
 ];
 
+var libcss = [
+    './lib/angular-material-0.9.8/angular-material.css',
+];
+
 var libjsmin = [
     './lib/angular-1.4.0/angular.min.js',
     './lib/angular-1.4.0/angular-aria.min.js',
@@ -71,14 +75,15 @@ var libjsmin = [
 
 ////////// Big tasks
 
-gulp.task('js', ['concatjslib', 'concatjslibmin', 'linkjs']);
-gulp.task('jsprod', ['concatjssrc', 'concatjsdocs', 'concatjslib', 'concatjslibmin', 'linkjsprod']);
+gulp.task('js', ['concatjslib', 'concatcsslib', 'concatjslibmin', 'linkjs']);
+gulp.task('jsprod', ['concatjssrc', 'concatjsdocs', 'concatjslib', 'concatcsslib', 'concatjslibmin', 'linkjsprod']);
 
 ////////// Individual tasks
 
 concattask('concatjssrc', {js: srcjs, html: srchtml, ngmodule: 'fstemplates', tmplprefix: 'FAKEPATH/', dest: 'fs.js'});
 concattask('concatjsdocs', {js: docsjs, html: docshtml, ngmodule: 'fsdocstemplates', tmplprefix: 'FAKEPATH/', dest: 'docs.js'});
 concattask('concatjslib', {js: libjs, dest: 'lib.js'});
+concattask('concatcsslib', {js: libcss, dest: '../css/lib.css'});
 concattask('concatjslibmin', {js: libjsmin, dest: 'lib.min.js'});
 sasstask('sass');
 linktaskdev('linkjs');
@@ -100,7 +105,7 @@ function concattask(id, options){
                     module: options.ngmodule,
                     path: function (path, base) {
                         var result = options.tmplprefix + path.replace(base, '');
-                        console.log(result);
+                        // console.log(result);
                         return result;
                     },
                 }));

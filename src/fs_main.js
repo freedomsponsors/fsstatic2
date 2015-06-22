@@ -15,7 +15,7 @@
 		'fseditprofile',
 		'fsapi',
 	];
-	if(jsutils.has_ng_module('fstemplates')){
+	if(FS.USE_TEAMPLE_CACHE){
 		deps.push('fstemplates');
 	}
 	angular.module('fs_main', deps);

@@ -6,10 +6,10 @@
         'ui.router',
         'fsngutils',
     ].concat(DOCS.angular_dependencies);
-    if(jsutils.has_ng_module('fstemplates')){
+    if(FS.USE_TEAMPLE_CACHE){
         deps.push('fstemplates');
     }
-    if(jsutils.has_ng_module('fsdocstemplates')){
+    if(DOCS.USE_TEAMPLE_CACHE){
         deps.push('fsdocstemplates');
     }
 

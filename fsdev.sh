@@ -18,7 +18,7 @@ export FS="$(dirname ${BASH_SOURCE[0]})"
 function fshelp {
     echo -e "${GREEN}fshelp${RESTORE}            Prints this help"
     echo -e ""
-    echo -e "${GREEN}build${RESTORE}             Builds the entire front end into the ${RED}'dist'${RESTORE} folder"
+    echo -e "${GREEN}devbuild${RESTORE}             Builds the entire front end into the ${RED}'dist'${RESTORE} folder"
     echo -e "                  Parameters:"
     echo -e "                  --mock <true|false> Use mock api (default: true)"
     echo -e ""
@@ -29,10 +29,28 @@ function fshelp {
     echo -e ""
 }
 
-function build {
+function devbuild {
     CD=$(pwd)
     cd $FS
-    dorun "gulp js sass $*" "fsstatic build"
+    dorun "gulp js sass $*" "Dev Build"
+    exitcode=$?
+    cd $CD
+    return $exitcode
+}
+
+function prodbuild1 {
+    CD=$(pwd)
+    cd $FS
+    dorun "gulp jsprod sass --prod true --mock true" "Prod build with mock API"
+    exitcode=$?
+    cd $CD
+    return $exitcode
+}
+
+function prodbuild2 {
+    CD=$(pwd)
+    cd $FS
+    dorun "gulp jsprod sass --prod true --mock false" "Prod build - real deal"
     exitcode=$?
     cd $CD
     return $exitcode
