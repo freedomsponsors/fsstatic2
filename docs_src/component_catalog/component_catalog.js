@@ -40,7 +40,7 @@ angular.module('component_catalog').factory('ComponentCatalog', function(){
     return catalog;
 });
 
-angular.module('component_catalog').factory('ComponentCatalogViewModel', function(ComponentCatalog, $http){
+angular.module('component_catalog').factory('ComponentCatalogViewModel', function(ComponentCatalog, $http, $templateCache){
     var m = {
         active_component: null,
         showing: 'NOTHING',
@@ -79,9 +79,13 @@ angular.module('component_catalog').factory('ComponentCatalogViewModel', functio
         m.showing = 'EXAMPLE';
         if(!component.source){
             var source_url = component.folder + component.example;
-            $http.get(source_url).success(function(source){
-                component.source = source;
-            });
+            if($templateCache.get(source_url)){
+                component.source = $templateCache.get(source_url);
+            } else {
+                $http.get(source_url).success(function(source){
+                    component.source = source;
+                });
+            }
         }
     }
 

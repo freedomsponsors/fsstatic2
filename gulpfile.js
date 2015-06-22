@@ -46,7 +46,7 @@ var docsjs = [
 
 var docshtml = [
     './docs_src/**/**/*.html',
-    './src/**/docs/**/*.html',
+    './src/**/docs/**/*.*',
 ];
 
 var docsjsprod = [
