@@ -110,7 +110,7 @@ angular.module('component_catalog').directive('componentCatalogTree', function(C
         scope: {
             group: '@'
         },
-        templateUrl: FS.BASE_URL+'/docs/component_catalog/component_catalog_tree.html',
+        templateUrl: DOCS.BASE_URL+'/component_catalog/component_catalog_tree.html',
         controller: function($scope) {
             var m = $scope.m = ComponentCatalogViewModel;
             m.init($scope.group);
@@ -128,7 +128,7 @@ angular.module('component_catalog').directive('componentCatalogSample', function
     return {
         restrict: 'E',
         scope: {},
-        templateUrl: FS.BASE_URL+'/docs/component_catalog/sample_page.html',
+        templateUrl: DOCS.BASE_URL+'/component_catalog/sample_page.html',
         controller: function($scope) {
             var m = $scope.m = ComponentCatalogViewModel;
         }

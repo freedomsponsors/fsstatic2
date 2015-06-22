@@ -4,19 +4,32 @@ var concat = require('gulp-concat');
 var sass = require('gulp-sass');
 var linker = require('gulp-linker');
 var webserver = require('gulp-webserver');
+var ngTemplates = require('gulp-ng-templates');
+var htmlmin = require('gulp-htmlmin');
+var merge = require('merge-stream');
 var argv = require('yargs').argv; 
 
 var mock = argv.mock == 'true' || argv.mock === undefined;
+var prod = argv.prod == 'true';
 
 var apijs = mock ? './src/api/api_mock.js' : './src/api/api.js';
+var settingsjs = prod ? './settings/prod.js' : './settings/dev.js';
 
 ////////// variables
 var srcjs = [
+    settingsjs,
     './src/fs_global.js',
+    './src/commons/jsutils.js',
+    './src/commons/fsngutils.js',
     './src/*.js',
     './src/!(api)/**/*.js',
     apijs,
     '!./src/**/docs/**/*.js',
+];
+
+var srchtml = [
+    './src/**/*.html',
+    '!./src/**/docs**/*.html',
 ];
 
 var srcjsprod = [
@@ -24,15 +37,20 @@ var srcjsprod = [
 ];
 
 var docsjs = [
-    './src/docs/docs_global.js',
-    './src/docs/component_catalog/component_catalog.js',
-    './src/**/docs/**/!(docs_main)*.js',
+    './docs_src/docs_global.js',
+    './docs_src/component_catalog/component_catalog.js',
+    './src/**/docs/**/*.js',
     '!./src/**/docs/**/test_*.js',
-    './src/docs/docs_main.js',
+    './docs_src/docs_main.js',
+];
+
+var docshtml = [
+    './docs_src/**/**/*.html',
+    './src/**/docs/**/*.html',
 ];
 
 var docsjsprod = [
-    './dist/js/fs_docs.js',
+    './dist/js/docs.js',
 ];
 
 var libjs = [
@@ -53,15 +71,15 @@ var libjsmin = [
 
 ////////// Big tasks
 
-gulp.task('js', ['concatjssrc', 'concatjsdocs', 'concatjslib', 'concatjslibmin', 'linkjs']);
+gulp.task('js', ['concatjslib', 'concatjslibmin', 'linkjs']);
 gulp.task('jsprod', ['concatjssrc', 'concatjsdocs', 'concatjslib', 'concatjslibmin', 'linkjsprod']);
 
 ////////// Individual tasks
 
-concattask('concatjssrc', srcjs, 'fs.js');
-concattask('concatjsdocs', docsjs, 'fs_docs.js');
-concattask('concatjslib', libjs, 'lib.js');
-concattask('concatjslibmin', libjsmin, 'lib.min.js');
+concattask('concatjssrc', {js: srcjs, html: srchtml, ngmodule: 'fstemplates', tmplprefix: 'FAKEPATH/', dest: 'fs.js'});
+concattask('concatjsdocs', {js: docsjs, html: docshtml, ngmodule: 'fsdocstemplates', tmplprefix: 'FAKEPATH/', dest: 'docs.js'});
+concattask('concatjslib', {js: libjs, dest: 'lib.js'});
+concattask('concatjslibmin', {js: libjsmin, dest: 'lib.min.js'});
 sasstask('sass');
 linktaskdev('linkjs');
 linktaskprod('linkjsprod');
@@ -69,10 +87,28 @@ webservertask('runserver');
 
 ////////// Helper functions
 
-function concattask(id, src, dest){
+function concattask(id, options){
     gulp.task(id, function() {
-        return gulp.src(src)
-            .pipe(concat(dest))
+        var stream_concat = gulp
+            .src(options.js)
+            .pipe(concat(options.dest));
+        if(options.html){
+            var stream_ngtemplates = gulp.src(options.html)
+                .pipe(htmlmin({collapseWhitespace: true}))
+                .pipe(ngTemplates({
+                    filename: 'zzz.js',
+                    module: options.ngmodule,
+                    path: function (path, base) {
+                        var result = options.tmplprefix + path.replace(base, '');
+                        console.log(result);
+                        return result;
+                    },
+                }));
+            stream_concat = merge(stream_concat);
+            stream_concat.add(stream_ngtemplates);
+            stream_concat = stream_concat.pipe(concat(options.dest))
+        }
+        return stream_concat
             .pipe(gulp.dest('./dist/js/'));
     });
 }

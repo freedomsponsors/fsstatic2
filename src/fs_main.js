@@ -2,6 +2,7 @@
 	var deps = [
 		'ngMaterial',
 		'ui.router',
+		'fsngutils',
 		'fstoolbar',
 		'fshome',
 		'fslogin',
@@ -14,6 +15,9 @@
 		'fseditprofile',
 		'fsapi',
 	];
+	if(jsutils.has_ng_module('fstemplates')){
+		deps.push('fstemplates');
+	}
 	angular.module('fs_main', deps);
 
 	angular.module('fs_main').config(function($interpolateProvider, $stateProvider, $urlRouterProvider) {

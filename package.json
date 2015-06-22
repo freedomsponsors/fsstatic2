@@ -9,6 +9,10 @@
     "gulp-linker": "~0.1.7",
     "gulp-webserver": "~0.9.1",
     "yargs": "~3.12.0",
-    "gulp-sass": "~2.0.1"
+    "gulp-sass": "~2.0.1",
+    "gulp-ng-templates": "0.0.6",
+    "gulp-ngtemplate": "~0.2.5",
+    "gulp-htmlmin": "~1.1.3",
+    "merge-stream": "~0.1.7"
   }
 }
