@@ -100,9 +100,15 @@ function publish_ghpages {
         echo_red "Whoops, could not change branch. Maybe you have uncommited changes."
         return 1
     fi
-    cp -Rf /tmp/fs/* ./dist/
+    cp -Rf /tmp/fs/* ./
+    echo_green "Status 1:"
+    git status
     git add .
+    echo_green "Status 2:"
+    git status
     git commit -m 'publishing to gh-pages' 
+    echo_green "Status 3:"
+    git status
     git push
     git checkout master
     cd $CD
