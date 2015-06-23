@@ -15,7 +15,7 @@ angular.module('fssearch').directive('fssearch', function(){
 		restrict: 'E',
 		replace: true,
 		scope: {},
-		templateUrl: FS.BASE_URL+'/search/fssearch.html',
+		templateUrl: FS.BASE_URL+'search/fssearch.html',
 		controller: function($scope, FSSearchModel){
 
 		},

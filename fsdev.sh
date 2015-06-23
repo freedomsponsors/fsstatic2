@@ -18,9 +18,18 @@ export FS="$(dirname ${BASH_SOURCE[0]})"
 function fshelp {
     echo -e "${GREEN}fshelp${RESTORE}            Prints this help"
     echo -e ""
-    echo -e "${GREEN}devbuild${RESTORE}             Builds the entire front end into the ${RED}'dist'${RESTORE} folder"
+    echo -e "${GREEN}devbuild${RESTORE}          Builds the entire front end into the ${RED}'dist'${RESTORE} folder,"
+    echo -e "                  The resulting html will search for js files in the 'src' folder:"
     echo -e "                  Parameters:"
     echo -e "                  --mock <true|false> Use mock api (default: true)"
+    echo -e ""
+    echo -e "${GREEN}prodmock${RESTORE}          Builds the entire front end into the ${RED}'dist'${RESTORE} folder"
+    echo -e "                  The resulting html will use the concatenated .js files in the 'dist' folder"
+    echo -e "                  Uses the ${RED}mocked${RESTORE} json API"
+    echo -e ""
+    echo -e "${GREEN}prodbuild${RESTORE}         Builds the entire front end into the ${RED}'dist'${RESTORE} folder"
+    echo -e "                  The resulting html will use the concatenated .js files in the 'dist' folder"
+    echo -e "                  Uses the ${RED}real${RESTORE} json API"
     echo -e ""
     echo -e "${GREEN}runserver${RESTORE}         Runs the development playground on port ${RED}9001${RESTORE}"
     echo -e ""
@@ -32,25 +41,25 @@ function fshelp {
 function devbuild {
     CD=$(pwd)
     cd $FS
-    dorun "gulp js sass $*" "Dev Build"
+    dorun "gulp dev $*" "Dev Build"
     exitcode=$?
     cd $CD
     return $exitcode
 }
 
-function prodbuild1 {
+function prodmock {
     CD=$(pwd)
     cd $FS
-    dorun "gulp jsprod sass --prod true --mock true" "Prod build with mock API"
+    dorun "gulp prod --mock true" "Prod build with mock API"
     exitcode=$?
     cd $CD
     return $exitcode
 }
 
-function prodbuild2 {
+function prodbuild {
     CD=$(pwd)
     cd $FS
-    dorun "gulp jsprod sass --prod true --mock false" "Prod build - real deal"
+    dorun "gulp prod --mock false" "Prod build - real deal"
     exitcode=$?
     cd $CD
     return $exitcode

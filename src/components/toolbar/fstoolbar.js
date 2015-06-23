@@ -5,7 +5,7 @@ angular.module('fstoolbar').directive('fstoolbar', function(){
 		restrict: 'E',
 		replace: true,
 		scope: {},
-		templateUrl: FS.BASE_URL+'/components/toolbar/fstoolbar.html',
+		templateUrl: FS.BASE_URL+'components/toolbar/fstoolbar.html',
 		controller: function($scope, FSAuth){
 			$scope.auth = FSAuth;
 		}

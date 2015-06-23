@@ -5,7 +5,7 @@ angular.module('component_catalog').run(function(ComponentCatalog){
         group: 'fs',
         title: 'TODO component',
         category: 'Example',
-        folder: FS.BASE_URL + '/components/todo_example/docs/',
+        folder: 'components/todo_example/docs/',
         example: 'todo_sample.html',
     });
 });

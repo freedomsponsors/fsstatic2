@@ -78,14 +78,10 @@ angular.module('component_catalog').factory('ComponentCatalogViewModel', functio
         m.active_component = component;
         m.showing = 'EXAMPLE';
         if(!component.source){
-            var source_url = component.folder + component.example;
-            if($templateCache.get(source_url)){
-                component.source = $templateCache.get(source_url);
-            } else {
-                $http.get(source_url).success(function(source){
-                    component.source = source;
-                });
-            }
+            var source_url = DOCS.SAMPLE_BASE_URL + component.folder + component.example;
+            $http.get(source_url).success(function(source){
+                component.source = source;
+            });
         }
     }
 
@@ -98,7 +94,7 @@ angular.module('component_catalog').factory('ComponentCatalogViewModel', functio
     }
 
     function get_include(){
-        return m.active_component.folder + m.active_component.example;
+        return DOCS.SAMPLE_BASE_URL + m.active_component.folder + m.active_component.example;
     }
 
     function get_source(){
@@ -114,7 +110,7 @@ angular.module('component_catalog').directive('componentCatalogTree', function(C
         scope: {
             group: '@'
         },
-        templateUrl: DOCS.BASE_URL+'/component_catalog/component_catalog_tree.html',
+        templateUrl: DOCS.BASE_URL+'component_catalog/component_catalog_tree.html',
         controller: function($scope) {
             var m = $scope.m = ComponentCatalogViewModel;
             m.init($scope.group);
@@ -132,7 +128,7 @@ angular.module('component_catalog').directive('componentCatalogSample', function
     return {
         restrict: 'E',
         scope: {},
-        templateUrl: DOCS.BASE_URL+'/component_catalog/sample_page.html',
+        templateUrl: DOCS.BASE_URL+'component_catalog/sample_page.html',
         controller: function($scope) {
             var m = $scope.m = ComponentCatalogViewModel;
         }

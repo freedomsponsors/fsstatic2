@@ -13,6 +13,7 @@
     "gulp-ng-templates": "0.0.6",
     "gulp-ngtemplate": "~0.2.5",
     "gulp-htmlmin": "~1.1.3",
-    "merge-stream": "~0.1.7"
+    "merge-stream": "~0.1.7",
+    "gulp-copy": "0.0.2"
   }
 }

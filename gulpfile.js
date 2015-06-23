@@ -2,6 +2,7 @@
 var gulp = require('gulp');
 var concat = require('gulp-concat');
 var sass = require('gulp-sass');
+var copy = require('gulp-copy');
 var linker = require('gulp-linker');
 var webserver = require('gulp-webserver');
 var ngTemplates = require('gulp-ng-templates');
@@ -9,93 +10,96 @@ var htmlmin = require('gulp-htmlmin');
 var merge = require('merge-stream');
 var argv = require('yargs').argv; 
 
+////////// variables
 var mock = argv.mock == 'true' || argv.mock === undefined;
 var prod = argv.prod == 'true';
 
-var apijs = mock ? './src/api/api_mock.js' : './src/api/api.js';
 var settingsjs = prod ? './settings/prod.js' : './settings/dev.js';
 
-////////// variables
-var srcjs = [
-    settingsjs,
-    './src/fs_global.js',
-    './src/commons/jsutils.js',
-    './src/commons/fsngutils.js',
-    './src/*.js',
-    './src/!(api)/**/*.js',
-    apijs,
-    '!./src/**/docs/**/*.js',
-];
+var src = {
+    js: function(env){
+        var apijs = mock ? './src/api/api_mock.js' : './src/api/api.js';
+        var settingsjs = env == 'prod' ? './settings/prod.js' : './settings/dev.js';
+        return [
+            settingsjs,
+            './src/fs_global.js',
+            './src/commons/jsutils.js',
+            './src/commons/fsngutils.js',
+            './src/*.js',
+            './src/!(api)/**/*.js',
+            apijs,
+            '!./src/**/docs/**/*.js',
+        ];
+    },
+    docssamples: ['./src/**/docs/**/*.*'],
+    jsdist: './dist/js/fs.js',
+    html: [
+        './src/**/*.html',
+        '!./src/**/docs**/*.html',
+    ],
+};
 
-var srchtml = [
-    './src/**/*.html',
-    '!./src/**/docs**/*.html',
-];
+var docs = {
+    js: [
+        './docs_src/docs_global.js',
+        './docs_src/component_catalog/component_catalog.js',
+        './src/**/docs/**/*.js',
+        '!./src/**/docs/**/test_*.js',
+        './docs_src/docs_main.js',
+    ],
+    html: [
+        './docs_src/**/**/*.html',
+    ],
+}
 
-var srcjsprod = [
-    './dist/js/fs.js',
-];
-
-var docsjs = [
-    './docs_src/docs_global.js',
-    './docs_src/component_catalog/component_catalog.js',
-    './src/**/docs/**/*.js',
-    '!./src/**/docs/**/test_*.js',
-    './docs_src/docs_main.js',
-];
-
-var docshtml = [
-    './docs_src/**/**/*.html',
-    './src/**/docs/**/*.*',
-];
-
-var docsjsprod = [
-    './dist/js/docs.js',
-];
-
-var libjs = [
-    './lib/angular-1.4.0/angular.js',
-    './lib/angular-1.4.0/angular-aria.js',
-    './lib/angular-1.4.0/angular-animate.js',
-    './lib/angular-material-0.9.8/angular-material.js',
-    './lib/angular-ui-router-0.2.15/angular-ui-router.js',
-];
-
-var libcss = [
-    './lib/angular-material-0.9.8/angular-material.css',
-];
-
-var libjsmin = [
-    './lib/angular-1.4.0/angular.min.js',
-    './lib/angular-1.4.0/angular-aria.min.js',
-    './lib/angular-1.4.0/angular-animate.min.js',
-    './lib/angular-material-0.9.8/angular-material.min.js',
-    './lib/angular-ui-router-0.2.15/angular-ui-router.min.js',
-];
+var lib = {
+    js: [
+        './lib/angular-1.4.0/angular.js',
+        './lib/angular-1.4.0/angular-aria.js',
+        './lib/angular-1.4.0/angular-animate.js',
+        './lib/angular-material-0.9.8/angular-material.js',
+        './lib/angular-ui-router-0.2.15/angular-ui-router.js',
+    ],
+    jsmin: [
+        './lib/angular-1.4.0/angular.min.js',
+        './lib/angular-1.4.0/angular-aria.min.js',
+        './lib/angular-1.4.0/angular-animate.min.js',
+        './lib/angular-material-0.9.8/angular-material.min.js',
+        './lib/angular-ui-router-0.2.15/angular-ui-router.min.js',
+    ],
+    css: ['./lib/angular-material-0.9.8/angular-material.css'],
+    cssmin: ['./lib/angular-material-0.9.8/angular-material.min.css'],
+}
 
 ////////// Big tasks
 
-gulp.task('js', ['concatjslib', 'concatcsslib', 'concatjslibmin', 'linkjs']);
-gulp.task('jsprod', ['concatjssrc', 'concatjsdocs', 'concatjslib', 'concatcsslib', 'concatjslibmin', 'linkjsprod']);
+var commontasks = ['concatjslib', 'concatjslibmin', 'concatcsslib', 'concatcsslibmin', 'sass'];
+gulp.task('dev', commontasks.concat(['linkjsdev']));
+gulp.task('prod', commontasks.concat(['concatjssrc', 'concatjsdocs', 'copydocssamples', 'linkjsprod']));
 
-////////// Individual tasks
-
-concattask('concatjssrc', {js: srcjs, html: srchtml, ngmodule: 'fstemplates', tmplprefix: 'FAKEPATH/', dest: 'fs.js'});
-concattask('concatjsdocs', {js: docsjs, html: docshtml, ngmodule: 'fsdocstemplates', tmplprefix: 'FAKEPATH/', dest: 'docs.js'});
-concattask('concatjslib', {js: libjs, dest: 'lib.js'});
-concattask('concatcsslib', {js: libcss, dest: '../css/lib.css'});
-concattask('concatjslibmin', {js: libjsmin, dest: 'lib.min.js'});
+////////// Common tasks
+concattask('concatjslib', {src: lib.js, dest: 'lib.js'});
+concattask('concatjslibmin', {src: lib.jsmin, dest: 'lib.min.js'});
+concattask('concatcsslib', {src: lib.css, dest: '../css/lib.css'});
+concattask('concatcsslibmin', {src: lib.cssmin, dest: '../css/lib.min.css'});
 sasstask('sass');
-linktaskdev('linkjs');
-linktaskprod('linkjsprod');
+
+////////// Dev tasks
+linktaskdev('linkjsdev');
 webservertask('runserver');
+
+////////// Prod tasks
+concattask('concatjssrc', {src: src.js('prod'), html: src.html, ngmodule: 'fstemplates', tmplprefix: 'TEMPLATE_CACHE/', dest: 'fs.js'});
+concattask('concatjsdocs', {src: docs.js, html: docs.html, ngmodule: 'docstemplates', tmplprefix: 'TEMPLATE_CACHE/', dest: 'docs.js'});
+copytask('copydocssamples', src.docssamples, 'docs_samples/', {prefix: 1});
+linktaskprod('linkjsprod');
 
 ////////// Helper functions
 
 function concattask(id, options){
     gulp.task(id, function() {
         var stream_concat = gulp
-            .src(options.js)
+            .src(options.src)
             .pipe(concat(options.dest));
         if(options.html){
             var stream_ngtemplates = gulp.src(options.html)
@@ -105,7 +109,7 @@ function concattask(id, options){
                     module: options.ngmodule,
                     path: function (path, base) {
                         var result = options.tmplprefix + path.replace(base, '');
-                        // console.log(result);
+                        console.log(result);
                         return result;
                     },
                 }));
@@ -130,8 +134,8 @@ function sasstask(id){
 function linktaskdev(id){
     gulp.task(id, function() {
         return gulp.src('./src/pages/*.html')
-            .pipe(linker(linker_params(srcjs, 'SRCJS', '.')))
-            .pipe(linker(linker_params(docsjs, 'DOCSJS', '.')))
+            .pipe(linker(linker_params(src.js('dev'), 'SRCJS', '.')))
+            .pipe(linker(linker_params(docs.js, 'DOCSJS', '.')))
             .pipe(gulp.dest('./dist/'));
     });
 }
@@ -139,8 +143,8 @@ function linktaskdev(id){
 function linktaskprod(id){
     gulp.task(id, ['concatjssrc', 'concatjsdocs'], function() {
         return gulp.src('./src/pages/*.html')
-            .pipe(linker(linker_params(srcjsprod, 'SRCJS', 'dist/')))
-            .pipe(linker(linker_params(docsjsprod, 'DOCSJS', 'dist/')))
+            .pipe(linker(linker_params('./dist/js/fs.js', 'SRCJS', 'dist/')))
+            .pipe(linker(linker_params('./dist/js/docs.js', 'DOCSJS', 'dist/')))
             .pipe(gulp.dest('./dist/'));
     });
 }
@@ -165,6 +169,11 @@ function webservertask(id){
             port: 9001,
         }));
     });
-
 }
 
+function copytask(id, from, to, options){
+    gulp.task(id, function() {
+        return gulp.src(from)
+        .pipe(copy('./dist/'+to, options));
+    });
+}

@@ -1,11 +1,12 @@
 if(!window.FS){
     window.FS = {};
 }
-FS.BASE_URL = 'FAKEPATH';
+FS.BASE_URL = 'TEMPLATE_CACHE/';
 FS.USE_TEAMPLE_CACHE = true;
 
 if(!window.DOCS){
     window.DOCS = {};
 }
-DOCS.BASE_URL = 'FAKEPATH';
+DOCS.BASE_URL = 'TEMPLATE_CACHE/';
+DOCS.SAMPLE_BASE_URL = './docs_samples/';
 DOCS.USE_TEAMPLE_CACHE = true;

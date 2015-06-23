@@ -10,7 +10,7 @@
         deps.push('fstemplates');
     }
     if(DOCS.USE_TEAMPLE_CACHE){
-        deps.push('fsdocstemplates');
+        deps.push('docstemplates');
     }
 
     angular.module('docs_main', deps);
