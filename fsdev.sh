@@ -105,6 +105,7 @@ function publish_ghpages {
     git commit -m 'publishing to gh-pages' 
     git push
     git checkout master
+    cd $CD
 }
 
 
