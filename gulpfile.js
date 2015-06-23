@@ -109,7 +109,7 @@ function concattask(id, options){
                     module: options.ngmodule,
                     path: function (path, base) {
                         var result = options.tmplprefix + path.replace(base, '');
-                        console.log(result);
+                        // console.log(result);
                         return result;
                     },
                 }));
