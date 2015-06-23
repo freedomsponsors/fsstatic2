@@ -94,9 +94,15 @@ function publish_ghpages {
     prodmock
     cp -Rf ./dist/* /tmp/fs/
     git checkout gh-pages
+    exitcode = $?
+    if [ "$exitcode" != "0" ]
+    then
+        echo_red "Whoops, could not change branch. Maybe you have uncommited changes."
+        return 1
+    fi
     cp -Rf /tmp/fs/* ./dist/
     git add .
-    git commit -m 'publishing to gh-pages'
+    git commit -m 'publishing to gh-pages' 
     git push
     git checkout master
 }
