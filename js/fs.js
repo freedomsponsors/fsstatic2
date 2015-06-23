@@ -1,26 +1,27 @@
-angular.module("fstemplates", []).run(["$templateCache", function($templateCache) {$templateCache.put("FAKEPATH/editprofile/fseditprofile.html","<div>EDIT PROFILE</div>");
-$templateCache.put("FAKEPATH/home/fshome.html","<div><h1>FreedomSponsors. Crodfunding Free software, one issue at a time</h1><span>sponsored issues...</span> <span>proposed issues...</span></div>");
-$templateCache.put("FAKEPATH/issue/fsissue.html","<div>ISSUE</div>");
-$templateCache.put("FAKEPATH/login/fslogin.html","<div><div><input type=\"text\" placeholder=\"username\" ng-model=\"m.username\"></div><div><input type=\"password\" placeholder=\"password\" ng-model=\"m.password\"></div><button ng-click=\"m.login()\">OK</button> <span ng-show=\"m.loading\">loading...</span></div>");
-$templateCache.put("FAKEPATH/pages/docs.html","<html><head><meta name=\"viewport\" content=\"initial-scale=1\"><link rel=\"stylesheet\" href=\"./css/lib.css\"><link rel=\"stylesheet\" href=\"./css/fs.css\"><link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic\"><script src=\"./js/lib.js\"></script><!--SRCJS--><!--SRCJS END--><!--DOCSJS--><!--DOCSJS END--><script>angular.module(\'docs_main\').controller(\'AppCtrl\', function($scope, $mdSidenav){\n                $scope.toggleSidenav = function(menuId) {\n                    $mdSidenav(menuId).toggle();\n                };\n            });</script></head><body ng-app=\"docs_main\" layout=\"column\" ng-controller=\"AppCtrl\"><md-toolbar layout=\"row\"><div class=\"md-toolbar-tools\"><md-button ng-click=\"toggleSidenav(\'left\')\" hide-gt-sm class=\"md-icon-button\"><md-icon aria-label=\"Menu\" md-svg-icon=\"https://s3-us-west-2.amazonaws.com/s.cdpn.io/68133/menu.svg\"></md-icon></md-button><h1>Hello World</h1><md-button>Left</md-button><md-button>Left</md-button><span flex></span><md-button>Right</md-button><md-button>Right</md-button></div></md-toolbar><div layout=\"row\" flex><md-sidenav layout=\"column\" class=\"md-sidenav-left md-whiteframe-z2\" md-component-id=\"left\" md-is-locked-open=\"$mdMedia(\'gt-sm\')\"><component-catalog-tree group=\"fs\"></component-catalog-tree></md-sidenav><div layout=\"column\" flex id=\"content\"><md-content layout=\"column\" flex class=\"md-padding\"><div ui-view></div></md-content></div></div></body></html>");
-$templateCache.put("FAKEPATH/pages/index.html","<html><head><meta name=\"viewport\" content=\"initial-scale=1\"><link rel=\"stylesheet\" href=\"./css/lib.css\"><link rel=\"stylesheet\" href=\"./css/fs.css\"><link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic\"><script src=\"./js/lib.js\"></script><!--SRCJS--><!--SRCJS END--></head><body ng-app=\"fs_main\" layout=\"column\" ng-controller=\"FSMainCtrl\"><md-toolbar layout=\"row\"><fstoolbar></fstoolbar></md-toolbar><div layout=\"row\" flex><div layout=\"column\" flex id=\"content\"><md-content layout=\"column\" flex class=\"md-padding\"><div ui-view></div></md-content></div></div></body></html>");
-$templateCache.put("FAKEPATH/project/fslistprojects.html","<div>PROJECT LIST</div>");
-$templateCache.put("FAKEPATH/project/fsproject.html","<div>PROJECT</div>");
-$templateCache.put("FAKEPATH/search/fssearch.html","<div>SEARCH</div>");
-$templateCache.put("FAKEPATH/sponsor/fssponsor.html","<div>SPONSOR</div>");
-$templateCache.put("FAKEPATH/viewuser/fsviewuser.html","<div><div ng-if=\"m.loading\">loading...</div><div ng-if=\"!m.loading\"><div>login: {[{m.user.username}]}</div><div>name: {[{m.user.name}]}</div><div>Paypal: {[{m.user.has_paypal}]}</div><div>Bitcoin: {[{m.user.has_bitcoin}]}</div></div></div>");
-$templateCache.put("FAKEPATH/components/todo_example/todo.html","<div><input type=\"text\" ng-model=\"m.newtodo\"><button ng-click=\"m.add()\">Add</button> <span ng-show=\"m.adding\">Adding...</span><ul class=\"todo\"><li ng-repeat=\"todo in m.todos\"><span>{[{todo.description}]}</span> <button ng-click=\"m.remove(todo)\">Remove</button></li></ul></div>");
-$templateCache.put("FAKEPATH/components/toolbar/fstoolbar.html","<div class=\"md-toolbar-tools\"><h1><a ui-sref=\"home\">FreedomSponsors</a></h1><a class=\"md-button\" ui-sref=\"listprojects\">Projects</a> <a class=\"md-button\" ui-sref=\"search\">Search</a> <a class=\"md-button\" href>etc</a> <span flex></span> <a class=\"md-button\" ui-sref=\"viewuser({login: auth.user.username})\" ng-if=\"auth.authenticated()\">{[{auth.user.username}]} <a><a class=\"md-button\" hreff ng-click=\"auth.logout()\" ng-if=\"auth.authenticated()\">Logout <a><a class=\"md-button\" ui-sref=\"login\" ng-if=\"!auth.authenticated()\">Login</a></a></a></a></a></div>");}]);
+angular.module("fstemplates", []).run(["$templateCache", function($templateCache) {$templateCache.put("TEMPLATE_CACHE/editprofile/fseditprofile.html","<div>EDIT PROFILE</div>");
+$templateCache.put("TEMPLATE_CACHE/home/fshome.html","<div><h1>FreedomSponsors. Crodfunding Free software, one issue at a time</h1><span>sponsored issues...</span> <span>proposed issues...</span></div>");
+$templateCache.put("TEMPLATE_CACHE/issue/fsissue.html","<div>ISSUE</div>");
+$templateCache.put("TEMPLATE_CACHE/login/fslogin.html","<div><div><input type=\"text\" placeholder=\"username\" ng-model=\"m.username\"></div><div><input type=\"password\" placeholder=\"password\" ng-model=\"m.password\"></div><button ng-click=\"m.login()\">OK</button> <span ng-show=\"m.loading\">loading...</span></div>");
+$templateCache.put("TEMPLATE_CACHE/pages/docs.html","<html><head><meta name=\"viewport\" content=\"initial-scale=1\"><link rel=\"stylesheet\" href=\"./css/lib.css\"><link rel=\"stylesheet\" href=\"./css/fs.css\"><link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic\"><script src=\"./js/lib.js\"></script><!--SRCJS--><!--SRCJS END--><!--DOCSJS--><!--DOCSJS END--><script>angular.module(\'docs_main\').controller(\'AppCtrl\', function($scope, $mdSidenav){\n                $scope.toggleSidenav = function(menuId) {\n                    $mdSidenav(menuId).toggle();\n                };\n            });</script></head><body ng-app=\"docs_main\" layout=\"column\" ng-controller=\"AppCtrl\"><md-toolbar layout=\"row\"><div class=\"md-toolbar-tools\"><md-button ng-click=\"toggleSidenav(\'left\')\" hide-gt-sm class=\"md-icon-button\"><md-icon aria-label=\"Menu\" md-svg-icon=\"https://s3-us-west-2.amazonaws.com/s.cdpn.io/68133/menu.svg\"></md-icon></md-button><h1>Hello World</h1><md-button>Left</md-button><md-button>Left</md-button><span flex></span><md-button>Right</md-button><md-button>Right</md-button></div></md-toolbar><div layout=\"row\" flex><md-sidenav layout=\"column\" class=\"md-sidenav-left md-whiteframe-z2\" md-component-id=\"left\" md-is-locked-open=\"$mdMedia(\'gt-sm\')\"><component-catalog-tree group=\"fs\"></component-catalog-tree></md-sidenav><div layout=\"column\" flex id=\"content\"><md-content layout=\"column\" flex class=\"md-padding\"><div ui-view></div></md-content></div></div></body></html>");
+$templateCache.put("TEMPLATE_CACHE/pages/index.html","<html><head><meta name=\"viewport\" content=\"initial-scale=1\"><link rel=\"stylesheet\" href=\"./css/lib.css\"><link rel=\"stylesheet\" href=\"./css/fs.css\"><link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic\"><script src=\"./js/lib.js\"></script><!--SRCJS--><!--SRCJS END--></head><body ng-app=\"fs_main\" layout=\"column\" ng-controller=\"FSMainCtrl\"><md-toolbar layout=\"row\"><fstoolbar></fstoolbar></md-toolbar><div layout=\"row\" flex><div layout=\"column\" flex id=\"content\"><md-content layout=\"column\" flex class=\"md-padding\"><div ui-view></div></md-content></div></div></body></html>");
+$templateCache.put("TEMPLATE_CACHE/project/fslistprojects.html","<div>PROJECT LIST</div>");
+$templateCache.put("TEMPLATE_CACHE/project/fsproject.html","<div>PROJECT</div>");
+$templateCache.put("TEMPLATE_CACHE/search/fssearch.html","<div>SEARCH</div>");
+$templateCache.put("TEMPLATE_CACHE/sponsor/fssponsor.html","<div>SPONSOR</div>");
+$templateCache.put("TEMPLATE_CACHE/viewuser/fsviewuser.html","<div><div ng-if=\"m.loading\">loading...</div><div ng-if=\"!m.loading\"><div>login: {[{m.user.username}]}</div><div>name: {[{m.user.name}]}</div><div>Paypal: {[{m.user.has_paypal}]}</div><div>Bitcoin: {[{m.user.has_bitcoin}]}</div></div></div>");
+$templateCache.put("TEMPLATE_CACHE/components/todo_example/todo.html","<div><input type=\"text\" ng-model=\"m.newtodo\"><button ng-click=\"m.add()\">Add</button> <span ng-show=\"m.adding\">Adding...</span><ul class=\"todo\"><li ng-repeat=\"todo in m.todos\"><span>{[{todo.description}]}</span> <button ng-click=\"m.remove(todo)\">Remove</button></li></ul></div>");
+$templateCache.put("TEMPLATE_CACHE/components/toolbar/fstoolbar.html","<div class=\"md-toolbar-tools\"><h1><a ui-sref=\"home\">FreedomSponsors</a></h1><a class=\"md-button\" ui-sref=\"listprojects\">Projects</a> <a class=\"md-button\" ui-sref=\"search\">Search</a> <a class=\"md-button\" href>etc</a> <span flex></span> <a class=\"md-button\" ui-sref=\"viewuser({login: auth.user.username})\" ng-if=\"auth.authenticated()\">{[{auth.user.username}]} <a><a class=\"md-button\" hreff ng-click=\"auth.logout()\" ng-if=\"auth.authenticated()\">Logout <a><a class=\"md-button\" ui-sref=\"login\" ng-if=\"!auth.authenticated()\">Login</a></a></a></a></a></div>");}]);
 if(!window.FS){
     window.FS = {};
 }
-FS.BASE_URL = 'FAKEPATH';
+FS.BASE_URL = 'TEMPLATE_CACHE/';
 FS.USE_TEAMPLE_CACHE = true;
 
 if(!window.DOCS){
     window.DOCS = {};
 }
-DOCS.BASE_URL = 'FAKEPATH';
+DOCS.BASE_URL = 'TEMPLATE_CACHE/';
+DOCS.SAMPLE_BASE_URL = './docs_samples/';
 DOCS.USE_TEAMPLE_CACHE = true;
 
 if(!window.FS){
@@ -136,7 +137,7 @@ angular.module('fseditprofile').directive('fseditprofile', function(){
 		restrict: 'E',
 		replace: true,
 		scope: {},
-		templateUrl: FS.BASE_URL+'/editprofile/fseditprofile.html',
+		templateUrl: FS.BASE_URL+'editprofile/fseditprofile.html',
 		controller: function($scope, FSEditProfileModel){
 
 		},
@@ -155,7 +156,7 @@ angular.module('fshome').directive('fshome', function(){
 		restrict: 'E',
 		replace: true,
 		scope: {},
-		templateUrl: FS.BASE_URL+'/home/fshome.html',
+		templateUrl: FS.BASE_URL+'home/fshome.html',
 		controller: function($scope, FSHomeModel){
 
 		},
@@ -178,7 +179,7 @@ angular.module('fsissue').directive('fsissue', function(){
 		restrict: 'E',
 		replace: true,
 		scope: {},
-		templateUrl: FS.BASE_URL+'/issue/fsissue.html',
+		templateUrl: FS.BASE_URL+'issue/fsissue.html',
 		controller: function($scope, FSIssueModel){
 
 		},
@@ -212,7 +213,7 @@ angular.module('fslogin').directive('fslogin', function(){
 		restrict: 'E',
 		replace: true,
 		scope: {},
-		templateUrl: FS.BASE_URL+'/login/fslogin.html',
+		templateUrl: FS.BASE_URL+'login/fslogin.html',
 		controller: function($scope, FSLoginModel, FSAuth){
 			$scope.m = FSLoginModel;
 			$scope.auth = FSAuth;
@@ -232,7 +233,7 @@ angular.module('fslistprojects').directive('fslistprojects', function(){
 		restrict: 'E',
 		replace: true,
 		scope: {},
-		templateUrl: FS.BASE_URL+'/project/fslistprojects.html',
+		templateUrl: FS.BASE_URL+'project/fslistprojects.html',
 		controller: function($scope, FSListProjectsModel){
 
 		},
@@ -255,7 +256,7 @@ angular.module('fsproject').directive('fsproject', function(){
 		restrict: 'E',
 		replace: true,
 		scope: {},
-		templateUrl: FS.BASE_URL+'/project/fsproject.html',
+		templateUrl: FS.BASE_URL+'project/fsproject.html',
 		controller: function($scope, FSProjectModel){
 
 		},
@@ -278,7 +279,7 @@ angular.module('fssearch').directive('fssearch', function(){
 		restrict: 'E',
 		replace: true,
 		scope: {},
-		templateUrl: FS.BASE_URL+'/search/fssearch.html',
+		templateUrl: FS.BASE_URL+'search/fssearch.html',
 		controller: function($scope, FSSearchModel){
 
 		},
@@ -301,7 +302,7 @@ angular.module('fssponsor').directive('fssponsor', function(){
 		restrict: 'E',
 		replace: true,
 		scope: {},
-		templateUrl: FS.BASE_URL+'/sponsor/fssponsor.html',
+		templateUrl: FS.BASE_URL+'sponsor/fssponsor.html',
 		controller: function($scope, FSSponsorModel){
 
 		},
@@ -338,7 +339,7 @@ angular.module('fsviewuser').directive('fsviewuser', function(){
 		restrict: 'E',
 		replace: true,
 		scope: {},
-		templateUrl: FS.BASE_URL+'/viewuser/fsviewuser.html',
+		templateUrl: FS.BASE_URL+'viewuser/fsviewuser.html',
 		controller: function($scope, FSViewUserModel){
 			$scope.m = FSViewUserModel;
 		},
@@ -397,7 +398,7 @@ angular.module('todo').directive('todo', function(){
         restrict: 'E',
         replace: true,
         scope: {},
-        templateUrl: FS.BASE_URL+'/components/todo_example/todo.html',
+        templateUrl: FS.BASE_URL+'components/todo_example/todo.html',
         controller: function($scope, TODOModel){
             var m = $scope.m = TODOModel;
         }
@@ -410,7 +411,7 @@ angular.module('fstoolbar').directive('fstoolbar', function(){
 		restrict: 'E',
 		replace: true,
 		scope: {},
-		templateUrl: FS.BASE_URL+'/components/toolbar/fstoolbar.html',
+		templateUrl: FS.BASE_URL+'components/toolbar/fstoolbar.html',
 		controller: function($scope, FSAuth){
 			$scope.auth = FSAuth;
 		}

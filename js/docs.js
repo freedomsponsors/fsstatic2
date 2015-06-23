@@ -1,3 +1,5 @@
+angular.module("docstemplates", []).run(["$templateCache", function($templateCache) {$templateCache.put("TEMPLATE_CACHE/component_catalog/component_catalog_tree.html","<div><div ng-repeat=\"category in m.categories\"><button class=\"md-button-toggle md-button md-default-theme\" ng-click=\"m.toggle_open(category)\"><div flex=\"\" layout=\"row\">{[{category.name}]}</div></button><ul ng-show=\"category.open\"><li ng-repeat=\"component in m.components | filter: by_category(category.name)\"><a class=\"md-button\" href=\"#/{[{component.category}]}/{[{component.title}]}\">{[{component.title}]}</a></li></ul></div></div>");
+$templateCache.put("TEMPLATE_CACHE/component_catalog/sample_page.html","<div><div><span>{[{m.active_component.title}]}</span> <button ng-click=\"m.show_example()\">Example</button> <button ng-click=\"m.show_source()\">Source</button></div><div ng-if=\"m.showing == \'EXAMPLE\'\" ng-include=\"m.get_include()\"></div><div ng-if=\"m.showing == \'SOURCE\'\"><pre>{[{m.get_source()}]}</pre></div></div>");}]);
 if(!window.DOCS){
 	window.DOCS = {};
 }
@@ -87,14 +89,10 @@ angular.module('component_catalog').factory('ComponentCatalogViewModel', functio
         m.active_component = component;
         m.showing = 'EXAMPLE';
         if(!component.source){
-            var source_url = component.folder + component.example;
-            if($templateCache.get(source_url)){
-                component.source = $templateCache.get(source_url);
-            } else {
-                $http.get(source_url).success(function(source){
-                    component.source = source;
-                });
-            }
+            var source_url = DOCS.SAMPLE_BASE_URL + component.folder + component.example;
+            $http.get(source_url).success(function(source){
+                component.source = source;
+            });
         }
     }
 
@@ -107,7 +105,7 @@ angular.module('component_catalog').factory('ComponentCatalogViewModel', functio
     }
 
     function get_include(){
-        return m.active_component.folder + m.active_component.example;
+        return DOCS.SAMPLE_BASE_URL + m.active_component.folder + m.active_component.example;
     }
 
     function get_source(){
@@ -123,7 +121,7 @@ angular.module('component_catalog').directive('componentCatalogTree', function(C
         scope: {
             group: '@'
         },
-        templateUrl: DOCS.BASE_URL+'/component_catalog/component_catalog_tree.html',
+        templateUrl: DOCS.BASE_URL+'component_catalog/component_catalog_tree.html',
         controller: function($scope) {
             var m = $scope.m = ComponentCatalogViewModel;
             m.init($scope.group);
@@ -141,7 +139,7 @@ angular.module('component_catalog').directive('componentCatalogSample', function
     return {
         restrict: 'E',
         scope: {},
-        templateUrl: DOCS.BASE_URL+'/component_catalog/sample_page.html',
+        templateUrl: DOCS.BASE_URL+'component_catalog/sample_page.html',
         controller: function($scope) {
             var m = $scope.m = ComponentCatalogViewModel;
         }
@@ -162,7 +160,7 @@ angular.module('component_catalog').run(function(ComponentCatalog){
         group: 'fs',
         title: 'TODO component',
         category: 'Example',
-        folder: FS.BASE_URL + '/components/todo_example/docs/',
+        folder: 'components/todo_example/docs/',
         example: 'todo_sample.html',
     });
 });
@@ -185,7 +183,7 @@ angular.module('component_catalog').controller('TodoSampleCtrl', function($scope
         deps.push('fstemplates');
     }
     if(DOCS.USE_TEAMPLE_CACHE){
-        deps.push('fsdocstemplates');
+        deps.push('docstemplates');
     }
 
     angular.module('docs_main', deps);
@@ -207,8 +205,3 @@ angular.module('component_catalog').controller('TodoSampleCtrl', function($scope
             });
     });
 })();
-
-angular.module("fsdocstemplates", []).run(["$templateCache", function($templateCache) {$templateCache.put("FAKEPATH/component_catalog/component_catalog_tree.html","<div><div ng-repeat=\"category in m.categories\"><button class=\"md-button-toggle md-button md-default-theme\" ng-click=\"m.toggle_open(category)\"><div flex=\"\" layout=\"row\">{[{category.name}]}</div></button><ul ng-show=\"category.open\"><li ng-repeat=\"component in m.components | filter: by_category(category.name)\"><a class=\"md-button\" href=\"#/{[{component.category}]}/{[{component.title}]}\">{[{component.title}]}</a></li></ul></div></div>");
-$templateCache.put("FAKEPATH/component_catalog/sample_page.html","<div><div><span>{[{m.active_component.title}]}</span> <button ng-click=\"m.show_example()\">Example</button> <button ng-click=\"m.show_source()\">Source</button></div><div ng-if=\"m.showing == \'EXAMPLE\'\" ng-include=\"m.get_include()\"></div><div ng-if=\"m.showing == \'SOURCE\'\"><pre>\n			{[{m.get_source()}]}\n		</pre></div></div>");
-$templateCache.put("FAKEPATH/components/todo_example/docs/todo_sample.html","<div ng-controller=\"TodoSampleCtrl\"><button ng-click=\"add_laundry()\">Add Laundry</button><todo></todo></div>");
-$templateCache.put("FAKEPATH/components/todo_example/docs/todo_sample.js","DOCS.add_angular_dependency(\'todo\'); angular.module(\'component_catalog\').run(function(ComponentCatalog){ ComponentCatalog.add_test_page({ group: \'fs\', title: \'TODO component\', category: \'Example\', folder: FS.BASE_URL + \'/components/todo_example/docs/\', example: \'todo_sample.html\', }); }); angular.module(\'component_catalog\').controller(\'TodoSampleCtrl\', function($scope, TODOModel){ $scope.add_laundry = function(){ TODOModel.newtodo = \'Do the laundry\'; TODOModel.add(); } });");}]);
