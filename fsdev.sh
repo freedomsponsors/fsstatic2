@@ -86,6 +86,21 @@ function runjshint {
     # return $exitcode
 }
 
+function publish_ghpages {
+    CD=$(pwd)
+    cd $FS
+    mkdir -p /tmp/fs
+    rm -Rf /tmp/fs/*
+    prodmock
+    cp -Rf ./dist/* /tmp/fs/
+    git checkout gh-pages
+    cp -Rf /tmp/fs/* ./dist/
+    git add .
+    git commit -m 'publishing to gh-pages'
+    git push
+    git checkout master
+}
+
 
 function echo_red {
     echo -e "\e[31m$1\e[0m";
