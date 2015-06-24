@@ -1,5 +1,5 @@
 angular.module("docstemplates", []).run(["$templateCache", function($templateCache) {$templateCache.put("TEMPLATE_CACHE/component_catalog/component_catalog_tree.html","<div layout=\"column\"><div flex ng-repeat=\"category in m.categories | orderBy: \'name\' \"><div layout=\"row\" flex class=\"md-button-toggle md-button md-default-theme\" ng-click=\"m.toggle_open(category)\">{[{category.name}]} <i ng-hide=\"category.open\" class=\"material-icons\" style=\"font-size: 14px\">keyboard_arrow_down</i> <i ng-show=\"category.open\" class=\"material-icons\" style=\"font-size: 14px\">keyboard_arrow_up</i></div><ul layout=\"column\" ng-show=\"category.open\"><li ng-repeat=\"component in m.components | filter: by_category(category.name) | orderBy: \'name\' \"><a class=\"md-button\" ng-class=\"{\'md-primary\': component == m.active_component}\" href=\"#/{[{component.category}]}/{[{component.title}]}\">{[{component.title}]}</a></li></ul></div></div>");
-$templateCache.put("TEMPLATE_CACHE/component_catalog/sample_page.html","<div><md-toolbar layout=\"row\" md-scroll-shrink><div class=\"md-toolbar-tools\"><h1>{[{m.active_component.title}]}</h1><md-button ng-click=\"m.show_example()\">Example</md-button><md-button ng-click=\"m.show_source()\">Source</md-button></div></md-toolbar><md-content layout-padding><div ng-if=\"m.showing == \'EXAMPLE\'\" ng-include=\"m.get_include()\"></div><div ng-if=\"m.showing == \'SOURCE\'\"><md-tabs md-border-bottom md-autoselect><md-tab ng-repeat=\"sourcefile in m.active_component.source_files\" label=\"{[{sourcefile.name}]}\"><md-whiteframe class=\"md-whiteframe-z2\" layout layout-padding layout-align=\"left\"><pre>{[{sourcefile.content}]}</pre></md-whiteframe></md-tab></md-tabs></div></md-content></div>");}]);
+$templateCache.put("TEMPLATE_CACHE/component_catalog/sample_page.html","<div><md-toolbar layout=\"row\" md-scroll-shrink><div class=\"md-toolbar-tools\"><h1>{[{m.active_component.title}]}</h1><md-button class=\"md-raised\" ng-class=\"{\'md-primary\': m.showing == \'EXAMPLE\'}\" ng-click=\"m.show_example()\">Example</md-button><md-button class=\"md-raised\" ng-class=\"{\'md-primary\': m.showing == \'SOURCE\'}\" ng-click=\"m.show_source()\">View Source</md-button></div></md-toolbar><md-content layout-padding><div ng-if=\"m.showing == \'EXAMPLE\'\" ng-include=\"m.get_include()\"></div><div ng-if=\"m.showing == \'SOURCE\'\"><md-tabs md-border-bottom md-autoselect><md-tab ng-repeat=\"sourcefile in m.active_component.source_files\" label=\"{[{sourcefile.name}]}\"><md-whiteframe class=\"md-whiteframe-z2\" layout layout-padding layout-align=\"left\"><pre>{[{sourcefile.content}]}</pre></md-whiteframe></md-tab></md-tabs></div></md-content></div>");}]);
 if(!window.DOCS){
 	window.DOCS = {};
 }
@@ -944,7 +944,7 @@ DOCS.add_angular_dependency('todo');
 angular.module('component_catalog').run(function(ComponentCatalog){
     ComponentCatalog.add_test_page({
         group: 'fs',
-        title: 'TODO component',
+        title: 'Example: A TODO',
         category: 'Example',
         folder: 'components/todo_example/docs/',
         example: 'todo_sample.html',
@@ -988,7 +988,7 @@ angular.module('component_catalog').controller('TodoSampleCtrl', function($scope
             })
             .state('instructions', {
                 url: '/instructions',
-                template: '<div> instructions </div>'
+                template: '<div layout-padding> select something on the left </div>'
             });
     });
 })();
