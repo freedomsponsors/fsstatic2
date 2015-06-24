@@ -42,5 +42,6 @@ The pages generated in the `dist` folder look for javascript files in the src fo
 
 ## Next steps:
 
+* jshint
 * javascript tests
 * api's

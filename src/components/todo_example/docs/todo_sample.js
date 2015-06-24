@@ -7,6 +7,7 @@ angular.module('component_catalog').run(function(ComponentCatalog){
         category: 'Example',
         folder: 'components/todo_example/docs/',
         example: 'todo_sample.html',
+        src: ['todo_sample.js'], //optional
     });
 });
 

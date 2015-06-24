@@ -5,8 +5,6 @@ angular.module('component_catalog').factory('ComponentCatalog', function(){
     };
 
     catalog.add_test_page = function(options){
-        options.js = _2array(options.js);
-        options.tests = _2array(options.tests);
 
         var component = {
             group: options.group,
@@ -14,12 +12,8 @@ angular.module('component_catalog').factory('ComponentCatalog', function(){
             category: options.category,
             folder: options.folder,
             example: options.example,
-            js: options.js,
-            tests: options.tests,
-            usage: options.usage,
-            source: '',
-            markdown: '',
-            active: false,
+            src: options.src,
+            source_files: [],
         };
         catalog.components.push(component);
     };
@@ -77,12 +71,20 @@ angular.module('component_catalog').factory('ComponentCatalogViewModel', functio
     function activate(component){
         m.active_component = component;
         m.showing = 'EXAMPLE';
-        if(!component.source){
-            var source_url = DOCS.SAMPLE_BASE_URL + component.folder + component.example;
-            $http.get(source_url).success(function(source){
-                component.source = source;
-            });
+        if(component.source_files.length === 0){
+            component.source_files = [{name: component.example}];
+            if(component.src){
+                component.source_files = component.source_files.concat(component.src.map(function(filename){ return {name: filename}; }));
+            }
+            function loadfile(sourcefile){
+                var url = DOCS.SAMPLE_BASE_URL + component.folder + sourcefile.name;
+                $http.get(url).success(function(content){
+                    sourcefile.content = content;
+                });
+            }
+            component.source_files.map(loadfile);
         }
+        component.active_sourcefile = component.source_files[0];
     }
 
     function show_example(){
@@ -98,7 +100,7 @@ angular.module('component_catalog').factory('ComponentCatalogViewModel', functio
     }
 
     function get_source(){
-        return m.active_component.source;
+        return m.active_component.active_sourcefile.content;
     }
 
     return m;
