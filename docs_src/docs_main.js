@@ -28,7 +28,7 @@
             })
             .state('instructions', {
                 url: '/instructions',
-                template: '<div> instructions </div>'
+                template: '<div layout-padding> select something on the left </div>'
             });
     });
 })();
