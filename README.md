@@ -1,11 +1,14 @@
 # fsstatic2
 
 This will be the new frontend of FreedomSponsors - a mobile first, MaterialDesign-based, SPA.
-Separating the front-end and back-end projects will allow for a much faster iteration and lower the technical barriers for contributors.
+
+The main goal of rebuilding the FreedomSponsors website like this is to have a reeeeally friendly development environment that more people can work on, while also serving as an example of a high quality architecture for a web app.
+
+So, even if you don't want to help FS, if you are interested in web development, take a look at how this project is structured. It may give you a few good ideas to improve your own webapp project.
 
 # The development environment.
 
-The development environment was though out to be reeeeally friendly and fast to get up and running
+You should be able to get a dev env up and running really fast:
 
 ```bash
 # Install gulp globally if you don't have it already
@@ -19,17 +22,19 @@ npm install
 
 # Activate the FS dev env
 # This will import a few functions in your bash, 
-# and print a little help text about them
 . fsdev.sh
+# and print a little help text about them (nice huh)
+# If you want to see the help again type 'fshelp'
 
 # If you want, you can add an alias to your ~/.bashrc 
 # file to make a quick jump into the development environment
 # Running the command below will tell you how to do so:
 produce_alias
+# I use that all the time
 
 # Build the project
 # This will create/update some stuff in the 'dist' folder
-build
+devbuild
 
 # Run the dev server
 # This just starts a http server on port 9001
@@ -38,7 +43,7 @@ build
 runserver
 ```
 
-The pages generated in the `dist` folder look for javascript files in the src folder, so you should be able to have a fast save/refresh development cicle when dealing with javascript and AngularJS.
+When you use `devbuild`, the pages generated in the `dist` folder look for javascript files in the src folder, so you should be able to have a fast save/refresh cicle when dealing with javascript and AngularJS.
 
 ## Next steps:
 
