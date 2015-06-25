@@ -6,6 +6,16 @@ The main goal of rebuilding the FreedomSponsors website like this is to have a r
 
 So, even if you don't want to help FS, if you are interested in web development, take a look at how this project is structured. It may give you a few good ideas to improve your own webapp project.
 
+Below are some nice "architectural features" that you will find here:
+
+* fsdev.sh: A list of commands easy at hand so we don't need to memorize anything
+* DOCS (docs.html): A "playground" page that should be used both for 1) developing/testing new components, and 2) documenting how to use them
+* The app (index.html): A true single page application that you can run locally
+* api_mock.js: With this we can mock all of the the backend JSON api. Focus on front-end development first; worry about the real backend api later.
+* Fast save/refresh cicle: Using devbuild/runserver, you end up with a development environment where you can save files and hit refresh, with no build steps in between (except for scss files, at least for now)
+* Javascript tests (not done yet): This project will have javascript tests enabled, with coverage report.
+* JsHint (not done yet): Because we love our javascript style checked
+
 # The development environment.
 
 You should be able to get a dev env up and running really fast:
@@ -44,9 +54,3 @@ runserver
 ```
 
 When you use `devbuild`, the pages generated in the `dist` folder look for javascript files in the src folder, so you should be able to have a fast save/refresh cicle when dealing with javascript and AngularJS.
-
-## Next steps:
-
-* jshint
-* javascript tests
-* api's
