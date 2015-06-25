@@ -1,5 +1,3 @@
-DOCS.add_angular_dependency('todo');
-
 angular.module('component_catalog').run(function(ComponentCatalog){
     ComponentCatalog.add_test_page({
         group: 'fs',

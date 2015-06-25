@@ -6,13 +6,7 @@
         'ui.router',
         'fsngutils',
     ].concat(DOCS.angular_dependencies);
-    if(FS.USE_TEAMPLE_CACHE){
-        deps.push('fstemplates');
-    }
-    if(DOCS.USE_TEAMPLE_CACHE){
-        deps.push('docstemplates');
-    }
-
+    
     angular.module('docs_main', deps);
     angular.module('docs_main').config(function($interpolateProvider, $controllerProvider, $stateProvider, $urlRouterProvider) {
         $interpolateProvider.startSymbol('{[{').endSymbol('}]}');

@@ -8,5 +8,9 @@ if(!window.DOCS){
     window.DOCS = {};
 }
 DOCS.BASE_URL = 'TEMPLATE_CACHE/';
-DOCS.SAMPLE_BASE_URL = './docs_samples/';
 DOCS.USE_TEAMPLE_CACHE = true;
+DOCS.SAMPLE_BASE_URL = './docs_samples/';
+
+if(!window.FSDOCS){
+    window.FSDOCS = {};
+}

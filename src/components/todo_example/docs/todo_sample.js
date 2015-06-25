@@ -1,4 +1,4 @@
-DOCS.add_angular_dependency('todo');
+FSDOCS.angular_dependencies.push('todo');
 
 angular.module('component_catalog').run(function(ComponentCatalog){
     ComponentCatalog.add_test_page({

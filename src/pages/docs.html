@@ -6,10 +6,25 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <script src="./js/lib.js"></script>
-        <!--SRCJS-->
-        <!--SRCJS END-->
+        <!--FSJS-->
+        <!--FSJS END-->
+        <script>
+            DOCS.angular_dependencies = ['fsdocs'];
+            FSDOCS.angular_dependencies = [];
+            if(FS.USE_TEAMPLE_CACHE){
+                DOCS.angular_dependencies.push('fstemplates');
+            }
+            if(DOCS.USE_TEAMPLE_CACHE){
+                DOCS.angular_dependencies.push('docstemplates');
+            }
+        </script>
         <!--DOCSJS-->
         <!--DOCSJS END-->
+        <!--FSDOCSJS-->
+        <!--FSDOCSJS END-->
+        <script>
+            angular.module('fsdocs', FSDOCS.angular_dependencies);
+        </script>
         <script>
             angular.module('docs_main').controller('AppCtrl', function($scope, $mdSidenav){
                 $scope.toggleSidenav = function(menuId) {

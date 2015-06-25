@@ -16,7 +16,7 @@ var prod = argv.prod == 'true';
 
 var settingsjs = prod ? './settings/prod.js' : './settings/dev.js';
 
-var src = {
+var fs = {
     js: function(env){
         var apijs = mock ? './src/api/api_mock.js' : './src/api/api.js';
         var settingsjs = env == 'prod' ? './settings/prod.js' : './settings/dev.js';
@@ -31,25 +31,32 @@ var src = {
             '!./src/**/docs/**/*.js',
         ];
     },
-    docssamples: ['./src/**/docs/**/*.*'],
-    jsdist: './dist/js/fs.js',
+    scss : [
+        './src/**/*.scss',
+    ],
     html: [
         './src/**/*.html',
         '!./src/**/docs**/*.html',
     ],
 };
 
-var docs = {
+var fsdocs = {
     js: [
-        './docs_src/docs_global.js',
-        './docs_src/component_catalog/component_catalog.js',
         './src/**/docs/**/*.js',
-        '!./src/**/docs/**/test_*.js',
-        './docs_src/docs_main.js',
     ],
     html: [
-        './docs_src/**/**/*.html',
+        './src/**/docs**/*.html',
     ],
+    samples: ['./src/**/docs/**/*.*'],
+};
+
+var docs = {
+    js: [
+        './docs_src/**/*.js',
+    ],
+    html: [
+        './docs_src/**/*.html',
+    ]
 }
 
 var lib = {
@@ -75,7 +82,7 @@ var lib = {
 
 var commontasks = ['concatjslib', 'concatjslibmin', 'concatcsslib', 'concatcsslibmin', 'sass'];
 gulp.task('dev', commontasks.concat(['linkjsdev']));
-gulp.task('prod', commontasks.concat(['concatjssrc', 'concatjsdocs', 'copydocssamples', 'linkjsprod']));
+gulp.task('prod', commontasks.concat(['concatjsfs', 'concatjsfsdocs', 'concatjsdocs', 'copydocssamples', 'linkjsprod']));
 
 ////////// Common tasks
 concattask('concatjslib', {src: lib.js, dest: 'lib.js'});
@@ -89,9 +96,10 @@ linktaskdev('linkjsdev');
 webservertask('runserver');
 
 ////////// Prod tasks
-concattask('concatjssrc', {src: src.js('prod'), html: src.html, ngmodule: 'fstemplates', tmplprefix: 'TEMPLATE_CACHE/', dest: 'fs.js'});
+concattask('concatjsfs', {src: fs.js('prod'), html: fs.html, ngmodule: 'fstemplates', tmplprefix: 'TEMPLATE_CACHE/', dest: 'fs.js'});
+concattask('concatjsfsdocs', {src: fsdocs.js, dest: 'fsdocs.js'});
 concattask('concatjsdocs', {src: docs.js, html: docs.html, ngmodule: 'docstemplates', tmplprefix: 'TEMPLATE_CACHE/', dest: 'docs.js'});
-copytask('copydocssamples', src.docssamples, 'docs_samples/', {prefix: 1});
+copytask('copydocssamples', fsdocs.samples, 'docs_samples/', {prefix: 1});
 linktaskprod('linkjsprod');
 
 ////////// Helper functions
@@ -124,7 +132,7 @@ function concattask(id, options){
 
 function sasstask(id){
     gulp.task('sass', function () {
-        gulp.src('./src/**/*.scss')
+        gulp.src(fs.scss)
             .pipe(sass().on('error', sass.logError))
             .pipe(gulp.dest('./dist/css'));
     });
@@ -134,16 +142,18 @@ function sasstask(id){
 function linktaskdev(id){
     gulp.task(id, function() {
         return gulp.src('./src/pages/*.html')
-            .pipe(linker(linker_params(src.js('dev'), 'SRCJS', '.')))
+            .pipe(linker(linker_params(fsdocs.js, 'FSDOCSJS', '.')))
+            .pipe(linker(linker_params(fs.js('dev'), 'FSJS', '.')))
             .pipe(linker(linker_params(docs.js, 'DOCSJS', '.')))
             .pipe(gulp.dest('./dist/'));
     });
 }
 
 function linktaskprod(id){
-    gulp.task(id, ['concatjssrc', 'concatjsdocs'], function() {
+    gulp.task(id, ['concatjsfs', 'concatjsfsdocs', 'concatjsdocs'], function() {
         return gulp.src('./src/pages/*.html')
-            .pipe(linker(linker_params('./dist/js/fs.js', 'SRCJS', 'dist/')))
+            .pipe(linker(linker_params('./dist/js/fs.js', 'FSJS', 'dist/')))
+            .pipe(linker(linker_params('./dist/js/fsdocs.js', 'FSDOCSJS', 'dist/')))
             .pipe(linker(linker_params('./dist/js/docs.js', 'DOCSJS', 'dist/')))
             .pipe(gulp.dest('./dist/'));
     });
