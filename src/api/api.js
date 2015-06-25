@@ -6,9 +6,9 @@ angular.module('fsapi').factory('FSApi', function($q, $timeout, $log){
 		logout: todo,
 		whoami: todo,
 		get_user_details: todo,
-	}
+	};
 
 	function todo(){}
 
 	return fsapi;
-})
+});

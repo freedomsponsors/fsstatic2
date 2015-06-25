@@ -6,7 +6,7 @@ angular.module('fsapi').factory('FSApi', function($q, $timeout, $log){
 		logout: _mockasync(logout),
 		whoami: _mockasync(whoami),
 		get_user_details: _mockasync(get_user_details),
-	}
+	};
 
 	var who = {
 		authenticated: true,
@@ -17,7 +17,7 @@ angular.module('fsapi').factory('FSApi', function($q, $timeout, $log){
 	};
 
 	function add(todo){
-		var newtodo = angular.copy(todo)
+		var newtodo = angular.copy(todo);
 		newtodo.id = Math.floor(Math.random() * 1E9);
 		return newtodo;
 	}
@@ -30,7 +30,7 @@ angular.module('fsapi').factory('FSApi', function($q, $timeout, $log){
 		who = {
 			authenticated: true,
 			user: fakeuser,
-		}
+		};
 		return fakeuser;
 	}
 
@@ -59,7 +59,7 @@ angular.module('fsapi').factory('FSApi', function($q, $timeout, $log){
 			var _arguments = arguments;
 			var _this = this;
 			if(!FS.MOCK){
-				FS.MOCK = {}
+				FS.MOCK = {};
 			}
 			if(FS.MOCK.timeout === undefined){
 				FS.MOCK.timeout = 500;
@@ -75,8 +75,8 @@ angular.module('fsapi').factory('FSApi', function($q, $timeout, $log){
 				}
 			}, FS.MOCK.timeout);
 			return deferred.promise;
-		}
+		};
 	}
 
 	return fsapi;
-})
+});

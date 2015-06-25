@@ -14,7 +14,7 @@ Below are some nice "architectural features" that you will find here:
 * api_mock.js: With this we can mock all of the the backend JSON api. Focus on front-end development first; worry about the real backend api later.
 * Fast save/refresh cicle: Using devbuild/runserver, you end up with a development environment where you can save files and hit refresh, with no build steps in between (except for scss files, at least for now)
 * Javascript tests (not done yet): This project will have javascript tests enabled, with coverage report.
-* JsHint (not done yet): Because we love our javascript style checked
+* JsHint: Because we love our javascript style checked
 
 # The development environment.
 

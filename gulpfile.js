@@ -8,6 +8,7 @@ var webserver = require('gulp-webserver');
 var ngTemplates = require('gulp-ng-templates');
 var htmlmin = require('gulp-htmlmin');
 var merge = require('merge-stream');
+var jshint = require('gulp-jshint');
 var argv = require('yargs').argv; 
 
 ////////// variables
@@ -88,6 +89,7 @@ concattask('concatjslib', {src: lib.js, dest: 'lib.js'});
 concattask('concatjslibmin', {src: lib.jsmin, dest: 'lib.min.js'});
 concattask('concatcsslib', {src: lib.css, dest: '../css/lib.css'});
 concattask('concatcsslibmin', {src: lib.cssmin, dest: '../css/lib.min.css'});
+jshinttask('jshintall')
 sasstask('sass');
 
 ////////// Dev tasks
@@ -102,7 +104,6 @@ copytask('copydocssamples', fsdocs.samples, 'docs_samples/', {prefix: 1});
 linktaskprod('linkjsprod');
 
 ////////// Helper functions
-
 function concattask(id, options){
     gulp.task(id, function() {
         var stream_concat = gulp
@@ -135,7 +136,16 @@ function sasstask(id){
             .pipe(sass().on('error', sass.logError))
             .pipe(gulp.dest('./dist/css'));
     });
+}
 
+function jshinttask(id){
+    gulp.task(id, function() {
+        return gulp.src(['./src/**/*.js', './docs_src/**/*.js'])
+            .pipe(jshint())
+            .pipe(jshint.reporter('jshint-stylish'))
+            .pipe(jshint.reporter('fail'))
+        return stream;
+    });
 }
 
 function linktaskdev(id){

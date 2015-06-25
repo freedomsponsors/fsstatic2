@@ -7,4 +7,4 @@ jsutils.has_ng_module = function(name){
 	} catch(ex){
 		return false;
 	}
-}
+};

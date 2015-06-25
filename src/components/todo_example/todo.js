@@ -22,7 +22,7 @@ angular.module('todo').factory('TODOModel', function(FSApi){
             m.todos.push(saved_todo);
         }).finally(function(){
             m.adding = false;
-        })
+        });
         m.newtodo = '';
     }
 

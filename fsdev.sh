@@ -34,6 +34,8 @@ function fshelp {
     echo -e "${GREEN}publish_ghpages${RESTORE}   Do a ${RED}prodmock${RESTORE} and commits the result in the ${RED}gh-pages${RESTORE} branch"
     echo -e "                  The result will be up in ${GREEN}http://freedomsponsors.github.io/fsstatic2${RESTORE}"
     echo -e ""
+    echo -e "${GREEN}runjshint${RESTORE}         Checks ${RED}javascript${RESTORE} files for lint warnings"
+    echo -e ""
     echo -e "${GREEN}runserver${RESTORE}         Runs the development playground on port ${RED}9001${RESTORE}"
     echo -e ""
     echo -e "${GREEN}produce_alias${RESTORE}     Prints instructions on how to create a persistent shortcut"
@@ -80,13 +82,12 @@ function produce_alias {
 }
 
 function runjshint {
-    echo ""
-    # CD=$(pwd)
-    # cd $QM
-    # dorun "jshint static/src/js/* estante-components/src/js/*" "JSHint"
-    # exitcode=$?
-    # cd $CD
-    # return $exitcode
+    CD=$(pwd)
+    cd $FS
+    dorun "gulp jshintall" "JS Hint"
+    exitcode=$?
+    cd $CD
+    return $exitcode
 }
 
 function publish_ghpages {
