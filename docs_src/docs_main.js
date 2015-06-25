@@ -5,8 +5,11 @@
         'component_catalog',
         'ui.router',
         'fsngutils',
-    ].concat(DOCS.angular_dependencies);
-    
+    ];
+    if(window.DOCS && DOCS.angular_dependencies){
+        deps = deps.concat(DOCS.angular_dependencies);
+    }
+
     angular.module('docs_main', deps);
     angular.module('docs_main').config(function($interpolateProvider, $controllerProvider, $stateProvider, $urlRouterProvider) {
         $interpolateProvider.startSymbol('{[{').endSymbol('}]}');

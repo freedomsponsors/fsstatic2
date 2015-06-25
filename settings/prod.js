@@ -8,7 +8,6 @@ if(!window.DOCS){
     window.DOCS = {};
 }
 DOCS.BASE_URL = 'TEMPLATE_CACHE/';
-DOCS.USE_TEAMPLE_CACHE = true;
 DOCS.SAMPLE_BASE_URL = './docs_samples/';
 
 if(!window.FSDOCS){

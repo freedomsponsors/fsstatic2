@@ -14,8 +14,6 @@ var argv = require('yargs').argv;
 var mock = argv.mock == 'true' || argv.mock === undefined;
 var prod = argv.prod == 'true';
 
-var settingsjs = prod ? './settings/prod.js' : './settings/dev.js';
-
 var fs = {
     js: function(env){
         var apijs = mock ? './src/api/api_mock.js' : './src/api/api.js';
@@ -81,8 +79,9 @@ var lib = {
 ////////// Big tasks
 
 var commontasks = ['concatjslib', 'concatjslibmin', 'concatcsslib', 'concatcsslibmin', 'sass'];
+var concatjstasks = ['concatjsfs', 'concatjsfsdocs', 'concatjsdocs']
 gulp.task('dev', commontasks.concat(['linkjsdev']));
-gulp.task('prod', commontasks.concat(['concatjsfs', 'concatjsfsdocs', 'concatjsdocs', 'copydocssamples', 'linkjsprod']));
+gulp.task('prod', commontasks.concat(concatjstasks).concat(['copydocssamples', 'linkjsprod']));
 
 ////////// Common tasks
 concattask('concatjslib', {src: lib.js, dest: 'lib.js'});
