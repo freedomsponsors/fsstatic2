@@ -9,12 +9,14 @@ var ngTemplates = require('gulp-ng-templates');
 var htmlmin = require('gulp-htmlmin');
 var merge = require('merge-stream');
 var jshint = require('gulp-jshint');
+var karma = require('karma').server;
 var argv = require('yargs').argv; 
 
-////////// variables
+////////// parameters
 var mock = argv.mock == 'true' || argv.mock === undefined;
 var prod = argv.prod == 'true';
 
+////////// code location
 var fs = {
     js: function(env){
         var apijs = mock ? './src/api/api_mock.js' : './src/api/api.js';
@@ -30,6 +32,15 @@ var fs = {
             '!./src/**/docs/**/*.js',
         ];
     },
+    jstests: [
+        './settings/dev.js',
+        './src/fs_global.js',
+        './src/commons/jsutils.js',
+        './src/commons/fsngutils.js',
+        './src/*.js',
+        './src/!(api)/**/*.js',
+        './src/api/api_mock.js',
+    ],
     scss : [
         './src/**/*.scss',
     ],
@@ -42,6 +53,7 @@ var fs = {
 var fsdocs = {
     js: [
         './src/**/docs/**/*.js',
+        '!./src/**/docs/**/test_*.js',
     ],
     html: [
         './src/**/docs**/*.html',
@@ -77,6 +89,14 @@ var lib = {
     cssmin: ['./lib/angular-material-0.9.8/angular-material.min.css'],
 }
 
+var testlib = {
+    js: [
+        './testlib/chai/chai.js',
+        './testlib/sinon/sinon.js',
+        './testlib/setup_globals.js',
+    ],
+};
+
 ////////// Big tasks
 
 var commontasks = ['concatjslib', 'concatjslibmin', 'concatcsslib', 'concatcsslibmin', 'sass'];
@@ -95,6 +115,7 @@ sasstask('sass');
 ////////// Dev tasks
 linktaskdev('linkjsdev');
 webservertask('runserver');
+jstesttask('test')
 
 ////////// Prod tasks
 concattask('concatjsfs', {src: fs.js('prod'), html: fs.html, ngmodule: 'fstemplates', tmplprefix: 'TEMPLATE_CACHE/', dest: 'fs.js'});
@@ -128,6 +149,51 @@ function concattask(id, options){
         return stream_concat
             .pipe(gulp.dest('./dist/js/'));
     });
+}
+
+function jstesttask(id){
+    var singleRun = argv.singleRun == 'true';
+    var coverage = argv.coverage == 'true';
+
+    var karmacfg = {
+        basePath: './',
+        frameworks: ['mocha'],
+        reporters: ['progress'],
+        browsers: ['PhantomJS'],
+        autoWatch: true,
+        singleRun: singleRun,
+        colors: true,
+        files : concatall([
+            lib.js,
+            testlib.js,
+            docs.js, 
+            fs.jstests,
+        ]),
+    }
+    if(coverage){
+        karmacfg.reporters = ['progress', 'coverage'];
+        karmacfg.preprocessors = {
+            './src/**/!(*docs)*.js': ['coverage']
+        };
+        karmacfg.coverageReporter = {
+            reporters: [
+                { type : 'html', dir : 'coverage/' },
+                { type : 'cobertura'},
+            ]
+        };
+    }
+
+    gulp.task(id, function (done) {
+        karma.start(karmacfg, done);
+    });
+}
+
+function concatall(arrays){
+    var result = [];
+    arrays.map(function(arr){
+        result = result.concat(arr);
+    });
+    return result;
 }
 
 function sasstask(id){

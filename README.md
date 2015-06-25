@@ -13,7 +13,7 @@ Below are some nice "architectural features" that you will find here:
 * The app (index.html): A true single page application that you can run locally
 * api_mock.js: With this we can mock all of the the backend JSON api. Focus on front-end development first; worry about the real backend api later.
 * Fast save/refresh cicle: Using devbuild/runserver, you end up with a development environment where you can save files and hit refresh, with no build steps in between (except for scss files, at least for now)
-* Javascript tests (not done yet): This project will have javascript tests enabled, with coverage report.
+* Javascript tests (almost done): This project will have javascript tests, with coverage report.
 * JsHint: Because we love our javascript style checked
 
 # The development environment.
@@ -45,6 +45,10 @@ produce_alias
 # Build the project
 # This will create/update some stuff in the 'dist' folder
 devbuild
+
+# Check js style and run tests
+runjshint
+runtests
 
 # Run the dev server
 # This just starts a http server on port 9001

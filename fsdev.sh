@@ -36,6 +36,11 @@ function fshelp {
     echo -e ""
     echo -e "${GREEN}runjshint${RESTORE}         Checks ${RED}javascript${RESTORE} files for lint warnings"
     echo -e ""
+    echo -e "${GREEN}runtests${RESTORE}          Runs the ${RED}javascript tests${RESTORE} (which should be located in src/**/docs/test_*.js)"
+    echo -e "                  Parameters:"
+    echo -e "                  --singleRun <true|false> Run tests ${RED}only once${RESTORE} (default: true = run everytime a file changes)"
+    echo -e "                  --coverage <true|false> Generate coverage report in ${GREEN}coverage/${RESTORE} directory (default: false)"
+    echo -e ""
     echo -e "${GREEN}runserver${RESTORE}         Runs the development playground on port ${RED}9001${RESTORE}"
     echo -e ""
     echo -e "${GREEN}produce_alias${RESTORE}     Prints instructions on how to create a persistent shortcut"
@@ -85,6 +90,15 @@ function runjshint {
     CD=$(pwd)
     cd $FS
     dorun "gulp jshintall" "JS Hint"
+    exitcode=$?
+    cd $CD
+    return $exitcode
+}
+
+function runtests {
+    CD=$(pwd)
+    cd $FS
+    dorun "gulp test $*" "JS tests"
     exitcode=$?
     cd $CD
     return $exitcode

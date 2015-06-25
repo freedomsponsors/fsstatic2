@@ -13,3 +13,6 @@ DOCS.SAMPLE_BASE_URL = '/src/';
 if(!window.FSDOCS){
     window.FSDOCS = {};
 }
+if(!FSDOCS.angular_dependencies){
+	FSDOCS.angular_dependencies = [];
+}
