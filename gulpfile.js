@@ -91,6 +91,7 @@ var lib = {
 
 var testlib = {
     js: [
+        './lib/angular-1.4.0/angular-mocks.js',
         './testlib/chai/chai.js',
         './testlib/sinon/sinon.js',
         './testlib/setup_globals.js',
@@ -173,7 +174,7 @@ function jstesttask(id){
     if(coverage){
         karmacfg.reporters = ['progress', 'coverage'];
         karmacfg.preprocessors = {
-            './src/**/!(*docs)*.js': ['coverage']
+            './src/**/!(docs)/*.js': ['coverage']
         };
         karmacfg.coverageReporter = {
             reporters: [
