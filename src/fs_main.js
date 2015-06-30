@@ -38,6 +38,5 @@
 	});
 
 	angular.module('fs_main').controller('FSMainCtrl', function($scope, FSAuth){
-		FSAuth.check_for_authentication();
 	});
 })();

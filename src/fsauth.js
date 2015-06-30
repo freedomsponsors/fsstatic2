@@ -5,22 +5,10 @@ angular.module('fsauth').factory('FSAuth', function(FSApi){
 		username: '', 
 		password: '',
 		user: null,
-		check_for_authentication: check_for_authentication,
 		authenticated: authenticated,
 		set_user: set_user,
 		logout: logout,
 	};
-
-	function check_for_authentication(){
-		FSApi.whoami().then(function(result){
-			var _who = result.data;
-			if(_who.authenticated){
-				auth.user = _who.user;
-			} else {
-				auth.user = null;
-			}
-		});
-	}
 
 	function authenticated(){
 		return auth.user !== null && auth.user !== undefined;
@@ -36,6 +24,18 @@ angular.module('fsauth').factory('FSAuth', function(FSApi){
 		});
 	}
 
+	function _check_for_authentication(){
+		FSApi.whoami().then(function(result){
+			var _who = result.data;
+			if(_who.authenticated){
+				auth.user = _who.user;
+			} else {
+				auth.user = null;
+			}
+		});
+	}
+
+	_check_for_authentication();
 
 	return auth;
 });
