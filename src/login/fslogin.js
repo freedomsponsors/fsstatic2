@@ -27,9 +27,8 @@ angular.module('fslogin').directive('fslogin', function(){
 		replace: true,
 		scope: {},
 		templateUrl: FS.BASE_URL+'login/fslogin.html',
-		controller: function($scope, FSLoginModel, FSAuth){
+		controller: function($scope, FSLoginModel){
 			$scope.m = FSLoginModel;
-			$scope.auth = FSAuth;
 		},
 	};
 });
