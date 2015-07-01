@@ -2,9 +2,7 @@
 
 This will be the new frontend of FreedomSponsors - a mobile first, MaterialDesign-based, SPA.
 
-For a quick dive in learning how this project is organized and learning a few AngularJS related good practices, start with this blog post:
-
-[An awseome setup for your AngularJS project](https://dicasdolampada.wordpress.com/2015/06/25/a-awesome-setup-for-your-angularjs-project-13/)
+For a quick dive in learning how this project is organized and learning a few AngularJS related good practices, start with this blog post: [An awseome setup for your AngularJS project](https://dicasdolampada.wordpress.com/2015/06/25/a-awesome-setup-for-your-angularjs-project-13/)
 
 The main goal of rebuilding the FreedomSponsors website like this is to have a reeeeally friendly development environment that more people can work on, while also serving as an example of a high quality architecture for a web app.
 
