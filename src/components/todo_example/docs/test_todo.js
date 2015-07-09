@@ -36,6 +36,8 @@ angular.module('todotester').factory('TodoTester', function(TODOModel, $timeout)
         expect(count).equal(TODOModel.todos.length); //still waiting for the "server" to respond
         $timeout.flush(); //yay, the server responded!
         expect(count + 1).equal(TODOModel.todos.length);
+        var saved_todo = TODOModel.todos[count];
+        expect(!!saved_todo.id).equal(true);
     }
 
     function remove(index){
