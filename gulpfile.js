@@ -10,7 +10,7 @@ var htmlmin = require('gulp-htmlmin');
 var merge = require('merge-stream');
 var jshint = require('gulp-jshint');
 var karma = require('karma').server;
-var argv = require('yargs').argv; 
+var argv = require('yargs').argv;
 
 ////////// parameters
 var mock = argv.mock == 'true' || argv.mock === undefined;
@@ -155,6 +155,7 @@ function concattask(id, options){
 function jstesttask(id){
     var singleRun = argv.singleRun == 'true';
     var coverage = argv.coverage == 'true';
+    var grep = argv.grep;
 
     var karmacfg = {
         basePath: './',
@@ -163,11 +164,16 @@ function jstesttask(id){
         browsers: ['PhantomJS'],
         autoWatch: true,
         singleRun: singleRun,
+        client: {
+            mocha: {
+                grep: grep,
+            }
+        },
         colors: true,
         files : concatall([
             lib.js,
             testlib.js,
-            docs.js, 
+            docs.js,
             fs.jstests,
         ]),
     }
