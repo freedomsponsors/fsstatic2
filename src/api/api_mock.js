@@ -5,6 +5,7 @@ angular.module('fsapi').factory('FSApi', function($q, $timeout, $log){
 		login: _mockasync(login),
 		logout: _mockasync(logout),
 		whoami: _mockasync(whoami),
+		list_issues: _mockasync(list_issues),
 		get_user_details: _mockasync(get_user_details),
 	};
 
@@ -42,6 +43,13 @@ angular.module('fsapi').factory('FSApi', function($q, $timeout, $log){
 
 	function whoami(){
 		return who;
+	}
+
+	function list_issues(filters){
+		return [
+			{project_name: 'TimeTravel', title: 'Invent a time machine'},
+			{project_name: 'Delorean', title: 'Lower warp speed to 88mph'}
+		];
 	}
 
 	function get_user_details(username){
