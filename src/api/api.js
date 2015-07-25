@@ -6,6 +6,7 @@ angular.module('fsapi').factory('FSApi', function(FSAjax){
 		login: login,
 		logout: logout,
 		whoami: whoami,
+		list_issues: list_issues,
 		get_user_details: todo,
 	};
 
@@ -21,6 +22,10 @@ angular.module('fsapi').factory('FSApi', function(FSAjax){
 
 	function whoami(){
 		return FSAjax.get('/api/whoami');
+	}
+
+	function list_issues(filters){
+		return FSAjax.get('/api/list_issues', {filters: angular.toJson(filters)});
 	}
 
 	return fsapi;
