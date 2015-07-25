@@ -31,6 +31,9 @@ function fshelp {
     echo -e "                  The resulting html will use the concatenated .js files in the 'dist' folder"
     echo -e "                  Uses the ${RED}real${RESTORE} json API"
     echo -e ""
+    echo -e "${GREEN}copy2www${RESTORE}          Do a ${RED}prodbuild${RESTORE} and copy the resulting js and css"
+    echo -e "                  to the 'www.freedomsponsors.org' project static files folder"
+    echo -e ""
     echo -e "${GREEN}publish_ghpages${RESTORE}   Do a ${RED}prodmock${RESTORE} and commits the result in the ${RED}gh-pages${RESTORE} branch"
     echo -e "                  The result will be up in ${GREEN}http://freedomsponsors.github.io/fsstatic2${RESTORE}"
     echo -e ""
@@ -71,6 +74,15 @@ function prodbuild {
     cd $FS
     dorun "gulp prod --mock false" "Prod build - real deal"
     exitcode=$?
+    cd $CD
+    return $exitcode
+}
+
+function copy2www {
+    CD=$(pwd)
+    cd $FS
+    prodbuild
+    cp -Rf dist/js dist/css ../www.freedomsponsors.org/djangoproject/statfiles/static/spa/
     cd $CD
     return $exitcode
 }
@@ -131,7 +143,6 @@ function publish_ghpages {
     git checkout master
     cd $CD
 }
-
 
 function echo_red {
     echo -e "\e[31m$1\e[0m";
