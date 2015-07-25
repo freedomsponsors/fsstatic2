@@ -11,8 +11,13 @@ angular.module('fslogin').factory('FSLoginModel', function(FSAuth, FSApi, $state
 	function login(){
 		m.loading = true;
 		FSApi.login(m.username, m.password).then(function(result){
-			FSAuth.set_user(result.data);
-			$state.go('home');
+			var logged_user = result.data;
+			if(logged_user){
+				FSAuth.set_user(result.data);
+				$state.go('home');
+			} else {
+				alert('wrong credentials');
+			}
 		}).finally(function(){
 			m.loading = false;
 		});
